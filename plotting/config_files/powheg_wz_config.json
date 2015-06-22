@@ -1,0 +1,40 @@
+{  
+   "pwg-l1Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 40,
+            "xmin": 0,
+            "xmax": 100
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineWidth": 2,
+            "GetXaxis().SetTitle": "Lepton 1 p_{T}",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "pwg-zMass": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 40,
+            "xmin": 55,
+            "xmax": 125
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineWidth": 2,
+            "GetXaxis().SetTitle": "M_{Z} [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "Canvas": {  
+        "Initialize": {  
+            "type": "TCanvas",
+            "ww": 800,
+            "wh": 600
+        },
+        "Attributes": {
+            "SetRightMargin" : 1.2
+        }
+    }
+}
