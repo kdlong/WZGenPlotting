@@ -2,7 +2,7 @@
    "amcnlo-l1Pt": {  
         "Initialize": {  
             "type": "TH1F",
-            "nbins": 40,
+            "nbins": 80,
             "xmin": 0,
             "xmax": 100
         },
@@ -13,10 +13,38 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
+   "amcnlo-l1Eta": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": -10,
+            "xmax": 10
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineWidth": 2,
+            "GetXaxis().SetTitle": " #eta",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "amcnlo-nj": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 8,
+            "xmin": 0,
+            "xmax": 8
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineWidth": 2,
+            "GetXaxis().SetTitle": "Number of p_{T} > 30 GenJets",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
    "amcnlo-zMass": {  
         "Initialize": {  
             "type": "TH1F",
-            "nbins": 40,
+            "nbins": 80,
             "xmin": 55,
             "xmax": 125
         },

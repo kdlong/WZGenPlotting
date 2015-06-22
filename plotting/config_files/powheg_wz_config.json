@@ -13,10 +13,38 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
+   "pwg-l1Eta": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": -10,
+            "xmax": 10
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineWidth": 2,
+            "GetXaxis().SetTitle": "Lepton 1 p_{T}",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "pwg-nj": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 8,
+            "xmin": 0,
+            "xmax": 8
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineWidth": 2,
+            "GetXaxis().SetTitle": "Number of p_{T} > 30 GenJets",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
    "pwg-zMass": {  
         "Initialize": {  
             "type": "TH1F",
-            "nbins": 40,
+            "nbins": 80,
             "xmin": 55,
             "xmax": 125
         },

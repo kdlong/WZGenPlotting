@@ -9,10 +9,10 @@ def getComLineArgs():
     parser = argparse.ArgumentParser()
     parser.add_argument("-o", "--output_file", type=str, required=True,
                         help="Name of file to be created (type pdf/png etc.)")
-    parser.add_argument("--no_scale", type=bool, default=False,
-                        help="Don't scale plot(s) by cross section")
-    #parser.add_argument("-n", "--plot_name", type=str, required=True,
-    #                    help="Name of hist in root and config file")
+    parser.add_argument("-s", "--scale", type=str, default="xsec",
+                        help="Method for scalling hists")
+    parser.add_argument("-b", "--branch", type=str, required=True,
+                        help="Name of branch in root and config file")
     return parser.parse_args()
 def getHist(root_file_name, config, hist_name, name_in_config):
     root_file = ROOT.TFile(root_file_name)                          
@@ -30,7 +30,6 @@ def getStacked(file_info, path_to_tree, branch_name, cut_string, scale):
                 "./config_files/" + entry["plot_config"])
         name = ''.join([entry["name"], "-", branch_name])
         hist = config.getObject(name, entry["title"])
-        config.setAttributes(hist, name)
 
         root_file = ROOT.TFile(entry["filename"])
         if not root_file:
@@ -42,8 +41,16 @@ def getStacked(file_info, path_to_tree, branch_name, cut_string, scale):
             branch_name,
             cut_string
         )
-        if scale:
-            scaleHistByXsec(hist, root_file, 10)
+        config.setAttributes(hist, name)
+        print "Title is %s" % hist.GetTitle()
+        if scale == "xsec":
+            scaleHistByXsec(hist, root_file, 10000)
+        elif scale == "unity":
+            print "Scalling hists in stack to unity"
+            hist.Sumw2()
+            hist.Scale(1/hist.GetEntries())
+        else:
+            print "No scalling applied!"
         hist_stack.Add(hist)
     return hist_stack
 def scaleHistByXsec(hist, root_file, lumi):
@@ -62,20 +69,23 @@ def getFileInfo():
     return file_info
 
 def main():
-    ROOT.gROOT.SetBatch(True)
+    #ROOT.gROOT.SetBatch(True)
     args = getComLineArgs()
     file_info = getFileInfo()
     canvas = ROOT.TCanvas("canvas", "canvas", 800, 600) 
+    canvas.SetRightMargin(1.2)
     
-    hist_stack = getStacked(file_info, "analyzeWZ/Ntuple", "zMass", "", True)
-    hist_stack.Draw("nostack hist")
+    hist_stack = getStacked(file_info, "analyzeWZ/Ntuple", 
+        args.branch, "", args.scale)
+    hist_stack.Draw("nostack hist E")
     hist_stack.GetYaxis().SetTitleSize(0.035)    
     hist_stack.GetYaxis().SetTitleOffset(1.2)    
     hist_stack.GetYaxis().SetTitle("Events")    
-    hist_stack.GetXaxis().SetTitle("M_{Z} [GeV]")    
+    hist_stack.GetXaxis().SetTitle(
+        hist_stack.GetHistogram().GetXaxis().GetTitle())
     hist_stack.GetXaxis().SetTitleOffset(1.2)    
     #hist_stack.GetHistogram().SetLabelSize(0.04)
-    #hist_stack.GetXaxis().SetLabelOffset(0.01)
+    print "The title should be %s" % hist_stack.GetXaxis().GetTitle()
 
     legend = ROOT.TLegend(.55, .75, .88, .88)
 
@@ -83,7 +93,6 @@ def main():
         legend.AddEntry(hist, hist.GetTitle(), "f")
     legend.SetFillColor(0)
     legend.Draw()
-    canvas.SetRightMargin(1.2)
     canvas.Print(args.output_file)
 
 if __name__ == "__main__":
