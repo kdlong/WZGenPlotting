@@ -1,0 +1,15 @@
+{
+   "POWHEG_WZ" : {
+       "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/POWHEG_WZ/test_POWHEG.root",
+       "name" : "pwg",
+       "title" : "POWHEG NLO incl",
+       "plot_config" : "powheg_wz_config.json"
+   },
+   "MG_NLO_WZ_01j" : {
+       "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/MG5aMCatNLO_WZ01j_OfficialGridpack/MG5aMCatNLO_WZ01j_OfficialGridpack_pythia8_TuneCUETP8M1_Ntuple.root",
+       "name" : "amcnlo",
+       "title" : "MG5_aMC@NLO NLO 0,1j",
+       "plot_config" : "amcnlo_wz_01j_config.json"
+   }
+}
+

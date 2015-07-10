@@ -52,7 +52,6 @@ class ConfigObject:
     def setAttributes(self, tObject, object_name):
         functions = []
         attributes =  self.data[object_name]['Attributes']
-        print attributes
         for function_call, params in attributes.iteritems():
             if not isinstance(params, list): 
                 params = [params]
@@ -92,5 +91,4 @@ class ConfigObject:
         for key in self.data:
             if key != "Canvas":
                 list_of_hists.append(key)
-        print list_of_hists
         return list_of_hists

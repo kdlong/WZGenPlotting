@@ -1,15 +1,39 @@
 {
    "POWHEG_WZ" : {
-       "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/POWHEG_WZ/WZ_powheg_pythia8_CUETP8M1_10E5ev_Ntuple.root",
+       "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/POWHEG_WZ/WZ_powheg_pythia8_CUETP8M1_official_miniAOD_Ntuple_onlyZcut.root",
        "name" : "pwg",
        "title" : "POWHEG NLO incl",
        "plot_config" : "powheg_wz_config.json"
    },
    "MG_NLO_WZ_01j" : {
-       "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/MG5aMCatNLO_WZ01j_OfficialGridpack/MG5aMCatNLO_WZ01j_OfficialGridpack_pythia8_TuneCUETP8M1_Ntuple.root",
-       "name" : "amcnlo",
+       "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/MG5aMCatNLO_WZ01j_OfficialGridpack/MG5aMCatNLO_WZ01j_OfficialGridpack_pythia8_TuneCUETP8M1_Ntuple_onlyZcut.root",
+       "name" : "amcnlo01j",
        "title" : "MG5_aMC@NLO NLO 0,1j",
        "plot_config" : "amcnlo_wz_01j_config.json"
+   },
+   "MG_NLO_WZ_0j" : {
+       "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/MG5aMCatNLO_WZ0j_OfficialGridpack/MG5aMCatNLO_WZ0j_OfficialGridpack_pythia8_TuneCUETP8M1_HIG_Hadronizer_Ntuple.root",
+       "name" : "amcnlo0j",
+       "title" : "MG5_aMC@NLO NLO incl",
+       "plot_config" : "amcnlo_wz_0j_config.json"
+   },
+   "MG_LO_WZ_0j" : {
+       "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/MGLO_WZ0j/MGLO_WZ0j_10E5ev_pythia8_MLM_Ntuple_onlyZcut.root",
+       "name" : "mglo0j",
+       "title" : "MG5_aMC@NLO LO incl",
+       "plot_config" : "mglo_wz_0j_config.json"
+   },
+   "MG_LO_WZ_01j" : {
+       "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/MGLO_WZ01j/MGLO_WZ01j_10E5ev_pythia8_MLM_Ntuple_onlyZcut.root",
+       "name" : "mglo01j",
+       "title" : "MG5_aMC@NLO LO 0,1j",
+       "plot_config" : "mglo_wz_01j_config.json"
+   },
+   "MG_NLO_WZ_012j" : {
+       "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/MGLO_WZ012j/MGLO_WZ012j_10E5ev_pythia8_MLM_Ntuple_onlyZcut.root",
+       "name" : "mglo012j",
+       "title" : "MG5_aMC@NLO LO 0,1,2j",
+       "plot_config" : "mglo_wz_012j_config.json"
    }
 }
 
