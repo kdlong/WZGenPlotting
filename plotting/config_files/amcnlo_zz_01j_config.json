@@ -1,5 +1,5 @@
 {  
-   "wz-amcnlo01j-l1Pt": {  
+   "zz-amcnlo01j-l1Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -7,14 +7,14 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 1 p_{T}",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz-amcnlo01j-l1Eta": {  
+   "zz-amcnlo01j-l1Eta": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -22,14 +22,14 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 1 #eta",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz-amcnlo01j-l2Pt": {  
+   "zz-amcnlo01j-l2Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -37,14 +37,14 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 2 p_{T}",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz-amcnlo01j-l2Eta": {  
+   "zz-amcnlo01j-l2Eta": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -52,14 +52,14 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 2 #eta",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz-amcnlo01j-j1Pt": {  
+   "zz-amcnlo01j-j1Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -67,14 +67,14 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Leading Jet p_{T}",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz-amcnlo01j-j1Eta": {  
+   "zz-amcnlo01j-j1Eta": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -82,14 +82,14 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Leading Jet #eta",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz-amcnlo01j-j2Pt": {  
+   "zz-amcnlo01j-j2Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -97,14 +97,14 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Jet 2 p_{T}",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz-amcnlo01j-j2Eta": {  
+   "zz-amcnlo01j-j2Eta": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -112,14 +112,14 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Jet 2 #eta",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz-amcnlo01j-nj": {  
+   "zz-amcnlo01j-nj": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 7,
@@ -127,14 +127,14 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Number of p_{T} > 30 GeV GenJets",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz-amcnlo01j-Z1Pt": {  
+    "zz-amcnlo01j-Z1Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -142,14 +142,14 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz-amcnlo01j-Z1mass": {  
+  "zz-amcnlo01j-Z1mass": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -157,7 +157,7 @@
             "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -165,7 +165,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz-amcnlo01j-Z2Pt": {  
+    "zz-amcnlo01j-Z2Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -173,14 +173,14 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz-amcnlo01j-Z2mass": {  
+    "zz-amcnlo01j-Z2mass": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -188,7 +188,7 @@
             "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -196,7 +196,69 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "Canvas": {  
+    "zz-amcnlo01j-Z3Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 300
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "zz-amcnlo01j-Z3mass": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": 60,
+            "xmax": 120
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineStyle": 1,
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "M_{Z} [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "zz-amcnlo01j-Z4Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 300
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "zz-amcnlo01j-Z4mass": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": 60,
+            "xmax": 120
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineStyle": 1,
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "M_{Z} [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "Canvas": {  
         "Initialize": {  
             "type": "TCanvas",
             "ww": 800,

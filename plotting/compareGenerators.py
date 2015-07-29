@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 import Utilities.plot_functions as plotter
+import Utilities.helper_functions as helper
 import argparse
 import ROOT
 import config_object
-import json
 import Utilities.selection as selection
 
 def getComLineArgs():
@@ -25,21 +25,15 @@ def getComLineArgs():
                         help="Don't plot error bands")
     parser.add_argument("-b", "--branches", type=str,
                         help="List (separate by commas) of names of branches "
-                        "in root and config file to plot")
+                        "in root and config file to plot") 
+    parser.add_argument("-n", "--max_entries", type=int, default=-1,
+                        help="Draw only first n entries of hist "
+                        "(useful for huge root files)")
     parser.add_argument("-f", "--files_to_plot", type=str, required=False,
                         default="", help="Files to make plots from, "
                         "separated by a comma (match name in file_info.json)")
     return parser.parse_args()
-def getHist(root_file_name, config, hist_name, name_in_config):
-    root_file = ROOT.TFile(root_file_name)                          
-    hist = plotter.getHistFromFile(root_file, 
-            "".join([hist_name, "_", name_in_config]), 
-            name_in_config, "")                                                                  
-    hist.Draw("hist")
-    config.setAttributes(hist, name_in_config)
-    return hist
-
-def getStacked(file_info, files_to_plot, path_to_tree, branch_name, cut_string, scale):
+def getStacked(file_info, files_to_plot, path_to_tree, branch_name, cut_string, scale, max_entries):
     hist_stack = ROOT.THStack("stack", "")
     for name, entry in file_info.iteritems():
         if files_to_plot != "" and entry["name"] not in [x.strip() for x in files_to_plot.split(",")]:
@@ -48,49 +42,66 @@ def getStacked(file_info, files_to_plot, path_to_tree, branch_name, cut_string, 
                 "./config_files/" + entry["plot_config"])
         name = ''.join([entry["name"], "-", branch_name])
         hist = config.getObject(name, entry["title"])
-
-        root_file = ROOT.TFile(entry["filename"])
-        if not root_file:
-            print 'Failed to open %s' % root_file
-            exit(0)
-        plotter.loadHistFromTree(hist, 
-            root_file, 
-            path_to_tree,
-            branch_name,
-            cut_string
-        )
+        
+        if "zz" in name:
+            path_to_tree = path_to_tree.replace("W", "Z")
+        helper.loadHistFromTree(hist,
+                entry["filename"], 
+                path_to_tree,
+                branch_name,
+                "(" + cut_string + ")*weight" if cut_string != "" else "weight",
+                max_entries
+            )
+        hist_no_cut = hist.Clone()
+        helper.loadHistFromTree(hist,
+                entry["filename"], 
+                path_to_tree,
+                branch_name,
+                "weight",
+                max_entries
+            )
         config.setAttributes(hist, name)
         print "Title is %s" % hist.GetTitle()
         if scale == "xsec":
-            scaleHistByXsec(hist, root_file, 10000)
-        elif scale == "unity":
-            print "Scalling hists in stack to unity"
-            hist.Sumw2()
-            print "hist has %i entries" % hist.GetEntries()
-            hist.Scale(1/hist.GetEntries())
-        else:
-            print "No scalling applied!"
+            scaleHistByXsec(hist, hist_no_cut, path_to_tree, entry["filename"], 1000)
+#        elif scale == "unity":
+#            print "Scalling hists in stack to unity"
+#            hist.Sumw2()
+#            print "hist has %i entries" % hist.GetEntries()
+#            hist.Scale(1/hist.GetEntries())
+#        else:
+#            print "No scalling applied!"
         hist_stack.Add(hist, "hist")
     return hist_stack
-def scaleHistByXsec(hist, root_file, lumi):
-    metadata = root_file.Get("analyzeWZ/MetaData")
+def scaleHistByXsec(hist, hist_no_cut, analysis_tree, filename, lumi):
+    selectedWeightsSum = hist.Integral() 
+    noCutWeightsSum = hist_no_cut.Integral()
+    metadata = helper.getChain(filename,
+            analysis_tree.replace("Ntuple", "MetaData")
+    )
+    print metadata
+    num_files = 0
+    xSec = 0
+    fidXSec = 0
+    numEvents = 0
+    fidSumWeights = 0
     for row in metadata:
-        numEvents = row.nPass
-        xSec = row.fidXSection
-        print "The fiducial x section was %f" % xSec
-    scale_factor = xSec/numEvents*lumi
-    new_fidXSec = xSec*hist.GetEntries()/numEvents
+        num_files += 1
+        xSec += row.inputXSection
+        fidXSec += row.fidXSection
+        numEvents += row.nPass
+        fidSumWeights += row.fidSumWeights
+    xSec /= num_files
+    fidXSec /= num_files
+    print "The input x section was %f" % xSec
+    
+    scale_factor = fidXSec/noCutWeightsSum
+    new_fidXSec = scale_factor*selectedWeightsSum
     print "%i initial events, %i selected events" % (numEvents, hist.GetEntries())
     print "The new fiducial cross section is %f" % new_fidXSec 
     print "Scaled by %s" % scale_factor
     hist.Sumw2()
-    hist.Scale(scale_factor)
-
-def getFileInfo():
-    with open("./config_files/file_info.json") as json_file:    
-        file_info = json.load(json_file)
-    return file_info
-
+    hist.Scale(scale_factor*lumi)
 def getCutString(args, branch_name):
     cut_string = ""
     if "j1" in branch_name:
@@ -114,7 +125,7 @@ def plotStack(file_info, args, branch_name):
 
     cut_string = getCutString(args, branch_name)
     hist_stack = getStacked(file_info, args.files_to_plot,
-        "analyzeWZ/Ntuple", branch_name, cut_string, args.scale)
+        "analyzeWZ/Ntuple", branch_name, cut_string, args.scale, args.max_entries)
     hists = hist_stack.GetHists()
     
     hist_stack.Draw("nostack")
@@ -127,8 +138,8 @@ def plotStack(file_info, args, branch_name):
     #hist_stack.GetHistogram().SetLabelSize(0.04)
     print "The title should be %s" % hist_stack.GetHistogram().GetXaxis().GetTitle()
     
-    xcoords = [.15, .55] if args.legend_left else [.55, .95]
-    legend = ROOT.TLegend(xcoords[0], 0.8, xcoords[1], 0.9)
+    xcoords = [.15, .55] if args.legend_left else [.50, .85]
+    legend = ROOT.TLegend(xcoords[0], 0.65, xcoords[1], 0.85)
     legend.SetFillColor(0)
     histErrors = []
     
@@ -149,7 +160,7 @@ def plotStack(file_info, args, branch_name):
 def main():
     #ROOT.gROOT.SetBatch(True)
     args = getComLineArgs()
-    file_info = getFileInfo()
+    file_info = helper.getFileInfo()
     branches = [x.strip() for x in args.branches.split(",")]
  
     for branch in branches:

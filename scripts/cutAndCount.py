@@ -13,8 +13,11 @@ def getComLineArgs():
     parser.add_argument("-c","--channel", type=str, default="",
                         choices=['eee', 'eem', 'emm', 'mmm'],
                         help="Apply default cut string.")
-    parser.add_argument("-f", "--input_file", type=str, required=True,
+    input = parser.add_mutually_exclusive_group(required=True)
+    parser.add_argument("-f", "--input_file", type=str,
                         default="", help="File with WZNutple to run over")
+    #parser.add_argument("-l", "--input_files", type=str,
+    #                    default="", help="File with WZNutple to run over")
     return parser.parse_args()
 
 def append_cut(cut_string, cut):
@@ -43,8 +46,13 @@ def getCutString(args, branch_name):
 def main():
     ROOT.gROOT.SetBatch(True)
     args = getComLineArgs()
-    root_file = ROOT.TFile(args.input_file)
-    metaTree = root_file.Get("analyzeWZ/MetaData")
+    if os.path.isfile(args.input_file):
+        root_file = ROOT.TFile(args.input_file)
+        metaTree = root_file.Get("analyzeWZ/MetaData")
+        ntuple = root_file.Get("analyzeWZ/Ntuple")
+    else:
+        ntuple = buildChain("analyzeWZ/Ntuple", glob.glob(args.input_file))
+        metaTree = buildChain("analyzeWZ/MetaData", glob.glob(args.input_file))
     xsec = {}
     events = {}
     for row in metaTree:
@@ -53,9 +61,8 @@ def main():
         events["total"] = row.nProcessedEvents
         events["initial_selection"] = row.nPass
     
-    ntuple = root_file.Get("analyzeWZ/Ntuple")
-    cut_string = getCutString(args, "zMass")
-    events["selection"] = ntuple.Draw("zMass", cut_string)
+    cut_string = getCutString(args, "l1Pt")
+    events["selection"] = ntuple.Draw("l1Pt", cut_string)
     xsec["selection"] = xsec["total"]*events["selection"]/events["total"]
     
     print "_______________________________________________________________\n"

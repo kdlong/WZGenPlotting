@@ -1,5 +1,5 @@
 {  
-   "amcnlo0j-l1Pt": {  
+   "wz-amcnlo0j-l1Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -14,7 +14,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "amcnlo0j-l2Pt": {  
+   "wz-amcnlo0j-l2Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -29,7 +29,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "amcnlo0j-l1Eta": {  
+   "wz-amcnlo0j-l1Eta": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -44,7 +44,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "amcnlo0j-l2Eta": {  
+   "wz-amcnlo0j-l2Eta": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -59,7 +59,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "amcnlo0j-j1Pt": {  
+   "wz-amcnlo0j-j1Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -74,7 +74,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "amcnlo0j-j1Eta": {  
+   "wz-amcnlo0j-j1Eta": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -89,7 +89,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "amcnlo0j-j2Pt": {  
+   "wz-amcnlo0j-j2Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -104,7 +104,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "amcnlo0j-j2Eta": {  
+   "wz-amcnlo0j-j2Eta": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -120,7 +120,7 @@
         }
     },
 
-   "amcnlo0j-nj": {  
+   "wz-amcnlo0j-nj": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 7,
@@ -135,7 +135,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "amcnlo0j-zPt": {  
+    "wz-amcnlo0j-zPt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -150,7 +150,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-  "amcnlo0j-zMass": {  
+  "wz-amcnlo0j-zMass": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,

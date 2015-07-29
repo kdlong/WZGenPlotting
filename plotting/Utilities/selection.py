@@ -12,13 +12,21 @@ def getPtCutString(pt_cuts):
             cut_string += " && "
         cut_string += "l%iPt > %s " % ((i +1), str(cut))
     return cut_string
-def getZMassCutString(numZ):
-    if numZ == 1:
-        return "(zMass < 120 && zMass > 60)"
+def getZMassCutString(numZs, numSavedZs, requireTrue):
     cut_string = ""
-    for i in range(1, numZ+1):
-        if i != 0:
-            cut_string += " && (z%iMass < 120 && z%iMass > 60)" % (i,i)
+    for i in range(1, numZs+1):
+        cut_string += "("
+        cut_string += " && " if i > 1 else ""
+        for j in range(1, numSavedZs+1):
+            cut_string += " || " if j > 1 else ""
+            cut_string += "(Z%imass > 60 && Z%imass < 120" % (j, j)
+            cut_string += " && Z%iisTrueZ" % j
+            append = ""
+            for n in range(1, j):
+                append += " && !Z%iisTrueZ " % n
+            cut_string += append + ")"
+        cut_string += ")"
+    return cut_string
 def getChannelEEMCutString():
     cut_string = "((abs(l1pdgId) == 11 && abs(l2pdgId) == 11 && abs(l3pdgId) == 13)" \
         " || (abs(l1pdgId) == 11 && abs(l2pdgId) == 13 && abs(l3pdgId) == 11)" \

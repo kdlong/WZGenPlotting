@@ -27,12 +27,20 @@ def getHistFromFile(root_file, name_in_file, rename, path_to_hist):
     if rename != "":
         hist.SetName(rename)
     return hist
+def loadHistFromChain(hist, file_list, path_to_tree, branch_name,
+                     cut_string, max_entries, append=False):
+    tree = ROOT.TChain(path_to_tree)
+    for file_name in file_list:
+        tree.Add(file_name)
+    loadHist(hist, tree, branch_name, cut_string, max_entries, append)
 def loadHistFromTree(hist, root_file, path_to_tree, branch_name, 
-                     cut_string, append=False):
+                     cut_string, max_entries, append=False):
     if not root_file:
         print 'Failed to open %s' % root_file
         exit(0)
     tree = root_file.Get(path_to_tree)
+    loadHist(hist, tree, branch_name, cut_string, max_entries, append)
+def loadHist(hist, tree, branch_name, cut_string, max_entries, append=False):
     if not tree:
         print 'Failed to get tree from file'
         exit(0)
@@ -40,7 +48,10 @@ def loadHistFromTree(hist, root_file, path_to_tree, branch_name,
     hist_name = "".join(["+ " if append else "", hist.GetName()])
     print "name is %s" % hist_name
     old_num = hist.GetEntries()
-    num = tree.Draw(branch_name + ">>" + hist_name, cut_string)
+    num = tree.Draw(branch_name + ">>" + hist_name, 
+            cut_string,
+            "",
+            max_entries if max_entries > 0 else 1000000000)
     print "Draw Comand is %s" % branch_name + ">>" + hist_name
     print "With cut string %s" % cut_string
     if append:
@@ -50,7 +61,7 @@ def loadHistFromTree(hist, root_file, path_to_tree, branch_name,
     #    hist.SetDirectory(ROOT.gROOT) # detach "hist" from the file
     print hist.GetEntries()
     return num
-# Taken and modified from Nick Smith, U-Wisconsin
+# Modified from Nick Smith, U-Wisconsin
 # https://github.com/nsmith-/ZHinvAnalysis/blob/master/splitCanvas.py
 def splitCanvas(oldcanvas, stack_name, name1, name2) :
     name = oldcanvas.GetName()
