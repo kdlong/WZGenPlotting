@@ -3,6 +3,7 @@ import argparse
 import ROOT
 import Utilities.selection as selection
 import Utilities.plot_functions as plotter
+import Utilities.helper_functions as helper
 import Utilities.WeightInfo as WeightInfo
 import Utilities.WeightedHistProducer as WeightedHistProducer
 
@@ -19,7 +20,7 @@ def getComLineArgs():
                         choices=['eee', 'eem', 'emm', 'mmm',
                                  'eeee', 'eemm', 'mmmm'],
                         help="Apply default cut string.")
-    parser.add_argument("-f", "--input_file", type=str, required=True,
+    parser.add_argument("-f", "--filename", type=str, required=True,
                         default="", help="File with GenNutple to run over")
     args = parser.parse_args()
     if "WZ" in args.analysis and len(args.channel) not in [0, 3]:
@@ -56,10 +57,15 @@ def main():
     ROOT.gROOT.SetBatch(True)
     args = getComLineArgs()
 
-    metaTree = plotter.buildChain(args.input_file, "analyze%s/MetaData" % args.analysis) 
+    file_info = helper.getFileInfo()
+    if args.filename in file_info.keys():
+        filename = file_info[args.filename]["filename"]
+    else:
+        filename = args.filename
+    metaTree = plotter.buildChain(filename, "analyze%s/MetaData" % args.analysis) 
     weight_info = WeightInfo.WeightInfoProducer(metaTree, "fidXSection", "fidSumWeights").produce()
 
-    ntuple = plotter.buildChain(args.input_file, "analyze%s/Ntuple" % args.analysis) 
+    ntuple = plotter.buildChain(filename, "analyze%s/Ntuple" % args.analysis) 
     histProducer = WeightedHistProducer.WeightedHistProducer(ntuple, weight_info, "weight")  
     histProducer.setLumi(1)
 

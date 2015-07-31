@@ -53,20 +53,22 @@ def getChannelEEMMCutString():
     cut_string = "((abs(l1pdgId) == 11 && abs(l2pdgId) == 11 && abs(l3pdgId) == 13 && abs(l4pdgId) == 13)" \
         " || (abs(l1pdgId) == 13 && abs(l2pdgId) == 13 && abs(l3pdgId) == 11 && abs(l4pdgId) == 11)" \
         " || (abs(l1pdgId) == 13 && abs(l2pdgId) == 11 && abs(l3pdgId) == 13 && abs(l4pdgId) == 11)" \
-        " || (abs(l1pdgId) == 13 && abs(l2pdgId) == 13 && abs(l3pdgId) == 11 && abs(l4pdgId) == 13)" \
+        " || (abs(l1pdgId) == 13 && abs(l2pdgId) == 11 && abs(l3pdgId) == 11 && abs(l4pdgId) == 13)" \
         " || (abs(l1pdgId) == 11 && abs(l2pdgId) == 13 && abs(l3pdgId) == 13 && abs(l4pdgId) == 11)" \
-        " || (abs(l1pdgId) == 11 && abs(l2pdgId) == 13 && abs(l3pdgId) == 11 && abs(l4pdgId) == 13)"
+        " || (abs(l1pdgId) == 11 && abs(l2pdgId) == 13 && abs(l3pdgId) == 11 && abs(l4pdgId) == 13))"
     return cut_string
-def getFiducialCutString(analysis):
+def getFiducialCutString(analysis, trueZ):
     if analysis is "WZ":
         numLeptons = 3
         pt_cuts = [20, 10, 10]
         numZs = 1
+        numStoredZs = 2
     else:
         numLeptons = 4
         pt_cuts = [20, 10, 10]
         numZs = 2
+        numStoredZs = 4
     cut_string = getEtaCutString(numLeptons)
     cut_string += " && " + getPtCutString(pt_cuts)
-    cut_string += " && " + getZMassCutString(numZs)
+    cut_string += " && " + getZMassCutString(numZs, numStoredZs, requireTrue)
     return cut_string
