@@ -33,75 +33,27 @@ def getComLineArgs():
                         default="", help="Files to make plots from, "
                         "separated by a comma (match name in file_info.json)")
     return parser.parse_args()
-def getStacked(file_info, files_to_plot, path_to_tree, branch_name, cut_string, scale, max_entries):
+def getStacked():
     hist_stack = ROOT.THStack("stack", "")
     for name, entry in file_info.iteritems():
         if files_to_plot != "" and entry["name"] not in [x.strip() for x in files_to_plot.split(",")]:
             continue
+        
+        loadProducers()
         config = config_object.ConfigObject(
                 "./config_files/" + entry["plot_config"])
         name = ''.join([entry["name"], "-", branch_name])
         hist = config.getObject(name, entry["title"])
-        
-        if "zz" in name:
-            path_to_tree = path_to_tree.replace("W", "Z")
-        helper.loadHistFromTree(hist,
-                entry["filename"], 
-                path_to_tree,
-                branch_name,
-                "(" + cut_string + ")*weight" if cut_string != "" else "weight",
-                max_entries
-            )
-        hist_no_cut = hist.Clone()
-        helper.loadHistFromTree(hist,
-                entry["filename"], 
-                path_to_tree,
-                branch_name,
-                "weight",
-                max_entries
-            )
+    
+        metaTree = buildChain(entry["filename"])
+        weight_info = WeightInfo.WeightInfoProducer(metaTree, "fidXSection", "fidSumWeights").produce()
+        ntuple =root_file.Get("analyzeZZ/Ntuple")
+        histProducer = WeightedHistProducer(ntuple, weight_info, "weight")  
+        histProducer.produce(hist, "Z1mass", "", 1000)
+
         config.setAttributes(hist, name)
-        print "Title is %s" % hist.GetTitle()
-        if scale == "xsec":
-            scaleHistByXsec(hist, hist_no_cut, path_to_tree, entry["filename"], 1000)
-#        elif scale == "unity":
-#            print "Scalling hists in stack to unity"
-#            hist.Sumw2()
-#            print "hist has %i entries" % hist.GetEntries()
-#            hist.Scale(1/hist.GetEntries())
-#        else:
-#            print "No scalling applied!"
         hist_stack.Add(hist, "hist")
     return hist_stack
-def scaleHistByXsec(hist, hist_no_cut, analysis_tree, filename, lumi):
-    selectedWeightsSum = hist.Integral() 
-    noCutWeightsSum = hist_no_cut.Integral()
-    metadata = helper.getChain(filename,
-            analysis_tree.replace("Ntuple", "MetaData")
-    )
-    print metadata
-    num_files = 0
-    xSec = 0
-    fidXSec = 0
-    numEvents = 0
-    fidSumWeights = 0
-    for row in metadata:
-        num_files += 1
-        xSec += row.inputXSection
-        fidXSec += row.fidXSection
-        numEvents += row.nPass
-        fidSumWeights += row.fidSumWeights
-    xSec /= num_files
-    fidXSec /= num_files
-    print "The input x section was %f" % xSec
-    
-    scale_factor = fidXSec/noCutWeightsSum
-    new_fidXSec = scale_factor*selectedWeightsSum
-    print "%i initial events, %i selected events" % (numEvents, hist.GetEntries())
-    print "The new fiducial cross section is %f" % new_fidXSec 
-    print "Scaled by %s" % scale_factor
-    hist.Sumw2()
-    hist.Scale(scale_factor*lumi)
 def getCutString(args, branch_name):
     cut_string = ""
     if "j1" in branch_name:

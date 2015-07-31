@@ -1,16 +1,11 @@
-#def getObjectFromFile (file, object_name, file_path):
-#    if not file:
-#        print 'Failed to open %s' % file
-#        exit(0)
-#    object = ROOT.TObject() 
-#    object = file.Get(file_path.join("/", object_name)
-#    if not hist:
-#        print 'Failed to get %s from file' % object_name
-#        exit(0)
-#    hist.SetDirectory(ROOT.gROOT) # detach "hist" from the file
-#    return hist
 import ROOT
+import glob
 
+def buildChain(filelist, treename):
+    chain = ROOT.TChain(treename)
+    for filename in glob.glob(filelist):
+        chain.Add(filename.strip())
+    return chain
 def getHistFromFile(root_file, name_in_file, rename, path_to_hist):
     if not root_file:
         print 'Failed to open %s' % file

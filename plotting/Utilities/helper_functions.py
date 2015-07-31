@@ -58,12 +58,35 @@ def getChain(filelist, path_to_tree):
     for file_name in filelist:
         tree.Add(file_name)
     return tree
-def scaleHistByXsec(hist, root_file, lumi):
-    metadata = root_file.Get("analyzeWZ/MetaData")
+def getScaleFactors(hist_no_cut, analysis_tree, file_name):
+    noCutWeightsSum = hist_no_cut.Integral()
+    metadata = helper.getChain(filename,
+            analysis_tree.replace("Ntuple", "MetaData")
+    )
+    
+    totals = { "inputXSection" : 0,
+        "fidXSection" : 0,
+        "nPass" : 0,
+        "fidSumWeights" : 0
+    }
+    
+    num_files = 0
     for row in metadata:
-        numEvents = row.nPass
-        xSec = row.fidXSection
-    scale_factor = xSec/numEvents*lumi
+        num_files += 1
+        for key, in totals:
+            counters[key] += row.getattr(key)
+    counters["inputXSection"] /= num_files
+    counters["fidXSection"] /= num_files
+    #print "The input x section was %f" % xSec
+    
+    return (counters["inputXSection"], counters["fidXSection"])
+    fid_scale_factor = fidXSec/noCutWeightsSum
+    input_scale_factor = fidXSec/noCutWeightsSum
+    return (
+    
+def scaleHistByLumi(, lumi):
+    print "%i initial events, %i selected events" % (numEvents, hist.GetEntries())
+    print "The new fiducial cross section is %f" % new_fidXSec 
     print "Scaled by %s" % scale_factor
     hist.Sumw2()
-    hist.Scale(scale_factor)
+    hist.Scale(scale_factor*lumi)

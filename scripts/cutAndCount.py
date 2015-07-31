@@ -2,22 +2,24 @@
 import argparse
 import ROOT
 import Utilities.selection as selection
+import Utilities.plot_functions as plotter
+import Utilities.WeightInfo as WeightInfo
+import Utilities.WeightedHistProducer as WeightedHistProducer
 
 def getComLineArgs():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-a", "--apply_cut", type=str, default="",
+    parser.add_argument("-m", "--make_cut", type=str, default="",
                         help="Enter a valid root cut string to apply")
+    parser.add_argument("-a", "--analysis", type=str, choices=["WZ", "ZZ"],
+                        required=True, help="Analysis: WZ or ZZ")
     parser.add_argument("-d","--default_cuts", type=str, default="",
                         choices=['', 'WZ fid', 'zMass'],
                         help="Apply default cut string.")
     parser.add_argument("-c","--channel", type=str, default="",
                         choices=['eee', 'eem', 'emm', 'mmm'],
                         help="Apply default cut string.")
-    input = parser.add_mutually_exclusive_group(required=True)
-    parser.add_argument("-f", "--input_file", type=str,
-                        default="", help="File with WZNutple to run over")
-    #parser.add_argument("-l", "--input_files", type=str,
-    #                    default="", help="File with WZNutple to run over")
+    parser.add_argument("-f", "--input_file", type=str, required=True,
+                        default="", help="File with GenNutple to run over")
     return parser.parse_args()
 
 def append_cut(cut_string, cut):
@@ -39,41 +41,32 @@ def getCutString(args, branch_name):
     if args.channel != "":
         cut_string = append_cut(cut_string, 
                 getattr(selection, "getChannel%sCutString" % args.channel.upper())())
-    if args.apply_cut != "":
-        cut_string = append_cut(cut_string, args.apply_cut)
+    if args.make_cut != "":
+        cut_string = append_cut(cut_string, args.make_cut)
     return cut_string
 
 def main():
     ROOT.gROOT.SetBatch(True)
     args = getComLineArgs()
-    if os.path.isfile(args.input_file):
-        root_file = ROOT.TFile(args.input_file)
-        metaTree = root_file.Get("analyzeWZ/MetaData")
-        ntuple = root_file.Get("analyzeWZ/Ntuple")
-    else:
-        ntuple = buildChain("analyzeWZ/Ntuple", glob.glob(args.input_file))
-        metaTree = buildChain("analyzeWZ/MetaData", glob.glob(args.input_file))
-    xsec = {}
-    events = {}
-    for row in metaTree:
-        xsec["total"] = row.inputXSection
-        xsec["initial_selection"] = row.fidXSection
-        events["total"] = row.nProcessedEvents
-        events["initial_selection"] = row.nPass
-    
+
+    metaTree = plotter.buildChain(args.input_file, "analyze%s/MetaData" % args.analysis) 
+    weight_info = WeightInfo.WeightInfoProducer(metaTree, "fidXSection", "fidSumWeights").produce()
+
+    ntuple = plotter.buildChain(args.input_file, "analyze%s/Ntuple" % args.analysis) 
+    histProducer = WeightedHistProducer.WeightedHistProducer(ntuple, weight_info, "weight")  
+    histProducer.setLumi(1)
+
     cut_string = getCutString(args, "l1Pt")
-    events["selection"] = ntuple.Draw("l1Pt", cut_string)
-    xsec["selection"] = xsec["total"]*events["selection"]/events["total"]
+    
+    hist = ROOT.TH1F("hist", "hist", 100, 0, 1000)
+    histProducer.produce(hist, "l1Pt")
+    initialXsec = hist.Integral()
+    histProducer.produce(hist, "l1Pt", cut_string)
+    selectedXsec = hist.Integral()
     
     print "_______________________________________________________________\n"
-
-    print "%i events in inital sample" % events["total"]
-    print "%i events passed initial selection" % events["initial_selection"]
-    print "%i events passed Selection" % events["selection"]
-
-    print "\nTotal gen cross section is %f " % xsec["total"]
-    print "Initial selection cross section is %f " % xsec["initial_selection"]
-    print "Selection cross section is %f " % xsec["selection"]    
+    print "Initial selection cross section is %f " % initialXsec
+    print "Selection cross section is %f " % selectedXsec
     print "\nSelection made using cut string:"
     print cut_string
     print "\n_______________________________________________________________"
