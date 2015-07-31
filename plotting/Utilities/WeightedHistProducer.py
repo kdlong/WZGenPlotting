@@ -27,22 +27,12 @@ class WeightedHistProducer(object):
         print hist.GetEntries()
         return num
     def produce(self, hist, branch_name, cut_string="", max_entries=-1, append=False): 
-        hist_no_cut = hist.Clone("hist_no_cut")
-        self.loadHist(hist_no_cut,
-                branch_name,
-                self.weight_branch,
-                max_entries
-        )
-        init_sum_weights = hist_no_cut.Integral()
         self.loadHist(hist,
             branch_name,
             ''.join([self.weight_branch, "*(" + cut_string + ")" if cut_string != "" else ""]),
             max_entries
         )
-        fid_sum_weights = hist.Integral()
-        scale_fac = fid_sum_weights/init_sum_weights
-        hist.Scale(self.event_weight*scale_fac*self.lumi)
-        del hist_no_cut
+        hist.Scale(self.event_weight*self.lumi)
 # For testing
 def main():
     root_file = ROOT.TFile("/afs/cern.ch/user/k/kelong/work/DibosonMCAnalysis/ZZTo4LNu0j_5f_NLO_FXFX/MG5aMCatNLO_ZZTo4LNu0j_muMass_pythia8_TuneCUETP8M1_Ntuple.root")

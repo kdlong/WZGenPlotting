@@ -16,12 +16,19 @@ def getComLineArgs():
                         choices=['', 'WZ fid', 'zMass'],
                         help="Apply default cut string.")
     parser.add_argument("-c","--channel", type=str, default="",
-                        choices=['eee', 'eem', 'emm', 'mmm'],
+                        choices=['eee', 'eem', 'emm', 'mmm',
+                                 'eeee', 'eemm', 'mmmm'],
                         help="Apply default cut string.")
     parser.add_argument("-f", "--input_file", type=str, required=True,
                         default="", help="File with GenNutple to run over")
-    return parser.parse_args()
-
+    args = parser.parse_args()
+    if "WZ" in args.analysis and len(args.channel) not in [0, 3]:
+        print "Valid channels for WZ are eee, emm, eem, and mmm"
+        exit(1)
+    elif "ZZ" in args.analysis and len(args.channel) not in [0,4]:
+        print "Valid channels for ZZ are eeee, eemm, and mmmm"
+        exit(1)
+    return args
 def append_cut(cut_string, cut):
     if cut_string != "":
         cut_string += " && " 
