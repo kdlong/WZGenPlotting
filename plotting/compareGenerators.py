@@ -3,7 +3,7 @@ import Utilities.plot_functions as plotter
 import Utilities.helper_functions as helper
 import argparse
 import ROOT
-import config_object
+import Utilities.config_object as config_object
 import Utilities.selection as selection
 
 def getComLineArgs():
@@ -19,67 +19,74 @@ def getComLineArgs():
                         help="Put legend left or right")
     parser.add_argument("--fiducial_cuts", type=str, default="",
                         help="Apply fiducial cuts before plotting")
-    parser.add_argument("-c","--channel", type=str, default="",
-                        help="Plot specifc channel")
     parser.add_argument("--no_errors", action="store_true",
                         help="Don't plot error bands")
-    parser.add_argument("-b", "--branches", type=str,
+    parser.add_argument("-b", "--branches", type=str, required=True,
                         help="List (separate by commas) of names of branches "
                         "in root and config file to plot") 
     parser.add_argument("-n", "--max_entries", type=int, default=-1,
                         help="Draw only first n entries of hist "
                         "(useful for huge root files)")
+    parser.add_argument("-m", "--make_cut", type=str, default="",
+                        help="Enter a valid root cut string to apply")
+    parser.add_argument("-d","--default_cut", type=str, default="",
+                        choices=['', 'WZ', 'zMass'],
+                        help="Apply default cut string.")
+    parser.add_argument("-c","--channel", type=str, default="",
+                        choices=['eee', 'eem', 'emm', 'mmm',
+                                 'eeee', 'eemm', 'mmmm'],
+                        help="Select only one channel")
     parser.add_argument("-f", "--files_to_plot", type=str, required=False,
                         default="", help="Files to make plots from, "
                         "separated by a comma (match name in file_info.json)")
     return parser.parse_args()
-def getStacked():
+def getStacked(file_info, branch_name, cut_string, max_entries):
     hist_stack = ROOT.THStack("stack", "")
     for name, entry in file_info.iteritems():
-        if files_to_plot != "" and entry["name"] not in [x.strip() for x in files_to_plot.split(",")]:
-            continue
-        
-        loadProducers()
+        "Print name is %s entry is %s at plot time" % (name, entry)
+        producer = entry["histProducer"]
         config = config_object.ConfigObject(
                 "./config_files/" + entry["plot_config"])
-        name = ''.join([entry["name"], "-", branch_name])
+        name = ''.join([name, "-", branch_name])
         hist = config.getObject(name, entry["title"])
-    
-        metaTree = buildChain(entry["filename"])
-        weight_info = WeightInfo.WeightInfoProducer(metaTree, "fidXSection", "fidSumWeights").produce()
-        ntuple =root_file.Get("analyzeZZ/Ntuple")
-        histProducer = WeightedHistProducer(ntuple, weight_info, "weight")  
-        histProducer.produce(hist, "Z1mass", "", 1000)
-
+        producer.setLumi(1000)    
+        if branch_name == "trueW-mass":
+            producer.produce(hist, 
+                "W1mass", 
+                ''.join(["W1isTrueW", ''.join([" && (", cut_string, ")"]) if cut_string != "" else ""]), 
+                max_entries
+            )
+            for i in range(2, 4):
+                temp = hist.Clone(hist.GetName() + str(i))
+                producer.produce(temp, 
+                    "W%imass" % i, 
+                    ''.join(["W%iisTrueW" % i, ''.join([" && (", cut_string, ")"]) if cut_string != "" else ""]), 
+                    max_entries
+                )
+                hist.Add(temp)
+                del temp
+        elif branch_name == "trueZ-mass":
+            producer.produce(hist, 
+                "Z1mass", 
+                ''.join(["Z1isTrueZ", ''.join([" && (", cut_string, ")"]) if cut_string != "" else ""]), 
+                max_entries
+            )
+            for i in range(2, 3 if "wz" in name else 5):
+                temp = hist.Clone(hist.GetName() + str(i))
+                producer.produce(temp, 
+                    "Z%imass" % i, 
+                    ''.join(["Z%iisTrueZ" % i, ''.join([" && (", cut_string, ")"]) if cut_string != "" else ""]), 
+                    max_entries
+                )
+        else:
+            producer.produce(hist, branch_name, cut_string, max_entries)
         config.setAttributes(hist, name)
         hist_stack.Add(hist, "hist")
     return hist_stack
-def getCutString(args, branch_name):
-    cut_string = ""
-    if "j1" in branch_name:
-        cut_string = "j1Pt > 0"
-    elif "j2" in branch_name:
-        cut_string = "j2Pt > 0"
-    if args.fiducial_cuts != "":
-        if cut_string != "":
-            cut_string += " && " 
-        if args.fiducial_cuts == "all":
-            cut_string += selection.getFiducialCutString("WZ")
-        elif args.fiducial_cuts == "zMass":
-            cut_string += selection.getZMassCutString(1)
-    if args.channel != "":
-        if cut_string != "":
-            cut_string += " && "
-        cut_string += getattr(selection, "getChannel%sCutString" % args.channel.upper())()
-    return cut_string
-def plotStack(file_info, args, branch_name):
+def plotStack(hist_stack, args):
     canvas = ROOT.TCanvas("canvas", "canvas", 800, 600) 
 
-    cut_string = getCutString(args, branch_name)
-    hist_stack = getStacked(file_info, args.files_to_plot,
-        "analyzeWZ/Ntuple", branch_name, cut_string, args.scale, args.max_entries)
     hists = hist_stack.GetHists()
-    
     hist_stack.Draw("nostack")
     hist_stack.GetYaxis().SetTitleSize(0.040)    
     hist_stack.GetYaxis().SetTitleOffset(1.3)    
@@ -102,22 +109,22 @@ def plotStack(file_info, args, branch_name):
             histErrors[-1].Draw("E2 same")
     legend.Draw()
     
-    output_file_name = args.output_file.replace("NAME", branch_name) 
+    output_file_name = args.output_file
     if args.make_ratio:
         split_canvas = plotter.splitCanvas(canvas, "stack", "01j FxFx", "incl")
         split_canvas.Print(output_file_name)
     else:
         canvas.Print(output_file_name)
-
 def main():
     #ROOT.gROOT.SetBatch(True)
     args = getComLineArgs()
-    file_info = helper.getFileInfo()
+    filelist = [x.strip() for x in args.files_to_plot.split(",")]
+    analysis = "WZ" if "wz" in args.files_to_plot else "ZZ"
+    hist_factory = helper.getHistFactory("config_files/file_info.json", filelist, analysis)
     branches = [x.strip() for x in args.branches.split(",")]
- 
+    cut_string = helper.getCutString(args.default_cut, args.channel, args.make_cut)
     for branch in branches:
-        plotStack(file_info, args, branch)
-
-
+        plotStack(getStacked(hist_factory, branch, cut_string, args.max_entries), args)
+        
 if __name__ == "__main__":
     main()

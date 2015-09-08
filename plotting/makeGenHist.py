@@ -31,14 +31,14 @@ def getComLineArgs():
 def getHist(file_info, file_to_plot, path_to_tree, branch_name, 
         cut_string, scale, max_entries):
     for name, entry in file_info.iteritems():
-        if entry["name"] != file_to_plot.strip():
+        if name != file_to_plot.strip():
             continue
         else:
             print "Found it"
         config = config_object.ConfigObject(
                 "./config_files/" + entry["plot_config"])
-        name = ''.join([entry["name"], "-", branch_name])
-        hist = config.getObject(name, entry["title"]) 
+        histname = ''.join([name, "-", branch_name])
+        hist = config.getObject(histname, entry["title"]) 
         if "zz" in name:
             path_to_tree = path_to_tree.replace("W", "Z")
         helper.loadHistFromTree(hist,
@@ -48,7 +48,7 @@ def getHist(file_info, file_to_plot, path_to_tree, branch_name,
                 cut_string,
                 max_entries
             )
-        config.setAttributes(hist, name)
+        config.setAttributes(hist, histname)
         print "Title is %s" % hist.GetTitle()
 #        if scale == "xsec":
 #            scaleHistByXsec(hist, root_file, 1000)
@@ -65,7 +65,7 @@ def getHist(file_info, file_to_plot, path_to_tree, branch_name,
 def main():
     #ROOT.gROOT.SetBatch(True)
     args = getComLineArgs()
-    file_info = helper.getFileInfo()
+    file_info = helper.getFileInfo("config_files/file_info.json")
     
     canvas = ROOT.TCanvas("canvas", "canvas", 1000, 600) 
     legendPad = ROOT.TPad('legendPad', 'ratioPad', 0.8, 0, 1., 1.)

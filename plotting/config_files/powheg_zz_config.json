@@ -7,7 +7,7 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 1 p_{T}",  
@@ -22,7 +22,7 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 1 #eta",  
@@ -37,7 +37,7 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 2 p_{T}",  
@@ -52,7 +52,7 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 2 #eta",  
@@ -67,7 +67,7 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Leading Jet p_{T}",  
@@ -82,7 +82,7 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Leading Jet #eta",  
@@ -97,7 +97,7 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Jet 2 p_{T}",  
@@ -112,7 +112,7 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Jet 2 #eta",  
@@ -127,7 +127,7 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Number of p_{T} > 30 GeV GenJets",  
@@ -142,7 +142,7 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
@@ -157,7 +157,7 @@
             "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -173,7 +173,7 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
@@ -183,12 +183,12 @@
     "zz-pwg-Z2mass": {  
         "Initialize": {  
             "type": "TH1F",
-            "nbins": 40,
+            "nbins": 80,
             "xmin": 0,
-            "xmax": 40
+            "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -204,7 +204,7 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
@@ -219,7 +219,7 @@
             "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -235,7 +235,7 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
@@ -250,7 +250,7 @@
             "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineColor": "ROOT.kBlue - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,

@@ -12,13 +12,14 @@ class WeightedHistProducer(object):
         self.lumi = lumi
     def loadHist(self, hist, branch_name, cut_string, max_entries, append=False):
         hist.GetDirectory().cd() 
-        hist_name = "".join(["+ " if append else "", hist.GetName()])
+        hist_name = "".join(["+" if append else "", hist.GetName()])
         print "name is %s" % hist_name
         old_num = hist.GetEntries()
         num = self.histChain.Draw(branch_name + ">>" + hist_name, 
                 cut_string,
                 "",
                 max_entries if max_entries > 0 else 1000000000)
+        print "this time %i pass" % num
         print "Draw Comand is %s" % branch_name + ">>" + hist_name
         print "With cut string %s" % cut_string
         if append:
@@ -30,7 +31,8 @@ class WeightedHistProducer(object):
         self.loadHist(hist,
             branch_name,
             ''.join([self.weight_branch, "*(" + cut_string + ")" if cut_string != "" else ""]),
-            max_entries
+            max_entries,
+            append
         )
         hist.Scale(self.event_weight*self.lumi)
 # For testing

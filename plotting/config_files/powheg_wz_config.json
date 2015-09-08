@@ -7,7 +7,7 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 1 p_{T}",  
@@ -22,7 +22,7 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 1 #eta",  
@@ -37,7 +37,7 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 2 p_{T}",  
@@ -52,7 +52,7 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 2 #eta",  
@@ -67,7 +67,7 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Leading Jet p_{T}",  
@@ -82,7 +82,7 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Leading Jet #eta",  
@@ -97,7 +97,7 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Jet 2 p_{T}",  
@@ -112,7 +112,7 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Jet 2 #eta",  
@@ -127,14 +127,14 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Number of p_{T} > 30 GeV GenJets",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz-pwg-Z1Pt": {  
+    "wz-pwg-W1Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -142,7 +142,69 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "p_{T}(W) [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+  "wz-pwg-W1mass": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": 4,
+            "xmax": 120
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineStyle": 1,
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "M_{W} [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "wz-pwg-W2Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 300
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "p_{T}(W) [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "wz-pwg-W2mass": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": 0,
+            "xmax": 120
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineStyle": 1,
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "M_{W} [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "wz-pwg-Z1Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 300
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
@@ -152,12 +214,12 @@
   "wz-pwg-Z1mass": {  
         "Initialize": {  
             "type": "TH1F",
-            "nbins": 80,
-            "xmin": 60,
-            "xmax": 120
+            "nbins": 40,
+            "xmin": 4,
+            "xmax": 30
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -173,7 +235,7 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
@@ -188,7 +250,7 @@
             "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kBlue - 6",
+            "SetLineColor": "ROOT.kRed - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -196,7 +258,84 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-
+    "wz-pwg-NuPt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 50,
+            "xmin": 0,
+            "xmax": 200
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineStyle": 1,
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "MET [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "wz-pwg-trueZ-mass": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": 20,
+            "xmax": 120
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineStyle": 1,
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "M_{W} [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "wz-pwg-trueZ-Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 300
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "p_{T}(W) [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "wz-pwg-trueW-mass": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": 20,
+            "xmax": 120
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineStyle": 1,
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "M_{W} [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "wz-pwg-trueW-Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 300
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "p_{T}(W) [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
    "Canvas": {  
         "Initialize": {  
             "type": "TCanvas",

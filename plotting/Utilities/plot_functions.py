@@ -1,10 +1,14 @@
 import ROOT
 import glob
+import os
 
 def buildChain(filelist, treename):
     chain = ROOT.TChain(treename)
     for filename in glob.glob(filelist):
-        chain.Add(filename.strip())
+        filename = filename.strip()
+        if ".root" not in filename or not os.path.isfile(filename):
+            raise IOError("%s is not a valid root file!" % filename)
+        chain.Add(filename)
     return chain
 def getHistFromFile(root_file, name_in_file, rename, path_to_hist):
     if not root_file:

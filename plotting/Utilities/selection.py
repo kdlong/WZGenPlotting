@@ -12,20 +12,29 @@ def getPtCutString(pt_cuts):
             cut_string += " && "
         cut_string += "l%iPt > %s " % ((i +1), str(cut))
     return cut_string
-def getZMassCutString(numZs, numSavedZs, requireTrue):
-    cut_string = ""
-    for i in range(1, numZs+1):
-        cut_string += "("
-        cut_string += " && " if i > 1 else ""
-        for j in range(1, numSavedZs+1):
-            cut_string += " || " if j > 1 else ""
-            cut_string += "(Z%imass > 60 && Z%imass < 120" % (j, j)
-            cut_string += " && Z%iisTrueZ" % j
-            append = ""
-            for n in range(1, j):
-                append += " && !Z%iisTrueZ " % n
-            cut_string += append + ")"
-        cut_string += ")"
+def getZMassCutString(analysis, requireTrue):
+    if analysis == "WZ":
+        if requireTrue:
+            return "((Z1mass < 120 && Z1mass > 60 && Z1isTrueZ) || " \
+                   "(Z2mass < 120 && Z2mass > 60 && Z2isTrueZ))"
+        else:
+            return "(Z1mass < 120 && Z2mass > 60"
+    elif analysis == "ZZ":
+        return "((Z1mass < 120 && Z1mass > 60 && Z1isTrueZ) || " \
+                 "(Z2mass < 120 && Z2mass > 60 && Z2isTrueZ))"
+
+#    for i in range(1, numZs+1):
+#        cut_string += "("
+#        cut_string += " && " if i > 1 else ""
+#        for j in range(1, numSavedZs+1):
+#            cut_string += " || " if j > 1 else ""
+#            cut_string += "(Z%imass > 60 && Z%imass < 120" % (j, j)
+#            cut_string += " && Z%iisTrueZ" % j
+#            append = ""
+#            for n in range(1, j):
+#                append += " && !Z%iisTrueZ " % n
+#            cut_string += append + ")"
+#        cut_string += ")"
     return cut_string
 def getChannelEEMCutString():
     cut_string = "((abs(l1pdgId) == 11 && abs(l2pdgId) == 11 && abs(l3pdgId) == 13)" \
@@ -70,5 +79,5 @@ def getFiducialCutString(analysis, trueZ):
         numStoredZs = 4
     cut_string = getEtaCutString(numLeptons)
     cut_string += " && " + getPtCutString(pt_cuts)
-    cut_string += " && " + getZMassCutString(numZs, numStoredZs, requireTrue)
+    cut_string += " && " + getZMassCutString(analysis, trueZ)
     return cut_string

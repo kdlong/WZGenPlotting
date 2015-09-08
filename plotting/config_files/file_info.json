@@ -1,45 +1,60 @@
 {
     "wz-pwg" : {
-        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_weights-wzGen_cfg/*",
+        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_Wtruth-wzGen_cfg/*",
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_wz_config.json"
     },
     "wz-amcnlo01j" : {
-        "filename" : "/hdfs/store/user/kelong/MGNLO_Off_GenNtuples_weights-wzGen_cfg/*",
+        "filename" : "/hdfs/store/user/kelong/MGNLO_Off_GenNtuples_Wtruth-wzGen_cfg/*",
         "title" : "MG5_aMC@NLO NLO 0,1j",
         "plot_config" : "amcnlo_wz_01j_config.json"
     },
+    "wz-amcnlo0j-ERROR" : {
+        "filename" : "/afs/cern.ch/user/k/kelong/work/DibosonMCAnalysis/MG5aMCatNLO_WZ0j_OfficialGridpack/MG5aMCatNLO_WZ0j_OfficialGridpack_pythia8_TuneCUETP8M1_Ntuple.root",
+        "title" : "MG5_aMC@NLO NLO incl ERROR",
+        "plot_config" : "amcnlo_wz_0j_config.json"
+    },
     "wz-amcnlo0j" : {
-        "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/MG5aMCatNLO_WZ0j_OfficialGridpack/MG5aMCatNLO_WZ0j_OfficialGridpack_pythia8_TuneCUETP8M1.root",
+        "filename" : "/afs/cern.ch/user/k/kelong/work/DibosonMCAnalysis/MG5aMCatNLO_WZ0j/MG5aMCatNLO_WZ0j_pythia8_TuneCUETP8M1_Ntuple.root",
         "title" : "MG5_aMC@NLO NLO incl",
         "plot_config" : "amcnlo_wz_0j_config.json"
     },
+    "wz-amcnlo0j-resW" : {
+        "filename" : "/afs/cern.ch/user/k/kelong/work/DibosonMCAnalysis/MG5aMCatNLO_WZ0j_resW/MG5aMCatNLO_WZ0j_resW_pythia8_TuneCUETP8M1_Ntuple.root",
+        "title" : "MG5_aMC@NLO NLO incl (res. W)",
+        "plot_config" : "amcnlo_wz_0j_resW_config.json"
+    },
     "wz-mglo0j" : {
-        "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/MGLO_WZ0j/MGLO_WZ0j_10E5ev_pythia8_MLM_Ntuple_onlyZcut.root",
+        "filename" : "/afs/cern.ch/user/k/kelong/work/DibosonMCAnalysis/MGLO_WZ0j/MGLO_WZ0j_10E5ev_pythia8_MLM_Ntuple_onlyZcut.root",
         "title" : "MG5_aMC@NLO LO incl",
         "plot_config" : "mglo_wz_0j_config.json"
     },
     "wz-mglo01j" : {
-        "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/MGLO_WZ01j/MGLO_WZ01j_10E5ev_pythia8_MLM_Ntuple_onlyZcut.root",
+        "filename" : "/afs/cern.ch/user/k/kelong/work/DibosonMCAnalysis/MGLO_WZ01j/MGLO_WZ01j_10E5ev_pythia8_MLM_Ntuple_onlyZcut.root",
         "title" : "MG5_aMC@NLO LO 0,1j",
         "plot_config" : "mglo_wz_01j_config.json"
     },
     "wz-mglo012j" : {
-        "filename" : "/afs/cern.ch/user/k/kelong/work/WZ_MCAnalysis/MG5aMCatNLO_ZZ01j_OfficialSample/MG5aMCatNLO_ZZ01j_OfficialSample_pythia8_TuneCUETP8M1_Ntuple_numEvent10000.root",
+        "filename" : "/afs/cern.ch/user/k/kelong/work/DibosonMCAnalysis/MG5aMCatNLO_ZZ01j_OfficialSample/MG5aMCatNLO_ZZ01j_OfficialSample_pythia8_TuneCUETP8M1_Ntuple_numEvent10000.root",
         "title" : "MG5_aMC@NLO LO 0,1,2j",
         "plot_config" : "mglo_wz_012j_config.json"
      },
      "zz-amcnlo01j" : {
-        "filename" : "/afs/cern.ch/work/k/kelong/WZ_MCAnalysis/MG5aMCatNLO_ZZ01j_OfficialSample/MG5aMCatNLO_ZZ01j_OfficialSample_pythia8_TuneCUETP8M1_Ntuple_numEvent10000.root",
+        "filename" : "/afs/cern.ch/user/k/kelong/work/DibosonMCAnalysis/MG5aMCatNLO_ZZ01j_OfficialSample/MG5aMCatNLO_ZZ01j_OfficialSample_pythia8_TuneCUETP8M1_Ntuple_numEvent100000.root",
         "title" : "MG5_aMC@NLO NLO ZZ+0,1j",
         "plot_config" : "amcnlo_zz_01j_config.json"
      },
-     "zz-amcnlo01j-mumass" : {
+     "zz-amcnlo0j-mumass" : {
         "filename" : "/afs/cern.ch/user/k/kelong/work/DibosonMCAnalysis/ZZTo4LNu0j_5f_NLO_FXFX/MG5aMCatNLO_ZZTo4LNu0j_muMass_pythia8_TuneCUETP8M1_Ntuple.root",
         "title" : "MG5_aMC@NLO NLO ZZ inc (mu mass)",
         "plot_config" : "amcnlo_zz_0j_mumass_config.json"
      },
-     "zz-amcnlo01j" : {
+     "zz-amcnlo01j-mumass" : {
+        "filename" : "/afs/cern.ch/user/k/kelong/work/DibosonMCAnalysis/MG5aMCatNLO_ZZ01j_OfficialSample/MG5aMCatNLO_ZZ01j_OfficialSample_mumass_pythia8_TuneCUETP8M1_Ntuple.root",
+        "title" : "MG5_aMC@NLO NLO ZZ+0,1j (mu mass)",
+        "plot_config" : "amcnlo_zz_01j_mumass_config.json"
+     },
+     "zz-amcnlo0j" : {
         "filename" : "/afs/cern.ch/user/k/kelong/work/DibosonMCAnalysis/ZZTo4LNu0j_5f_NLO_FXFX/MG5aMCatNLO_ZZTo4LNu0j_pythia8_TuneCUETP8M1_Ntuple.root",
         "title" : "MG5_aMC@NLO NLO ZZ inc (no mu mass)",
         "plot_config" : "amcnlo_zz_0j_config.json"
