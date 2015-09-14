@@ -8,8 +8,10 @@ class WeightedHistProducer(object):
         self.weight_branch = weight_branch
         self.event_weight = self.weight_info.getCrossSection()/self.weight_info.getSumOfWeights()
         self.lumi = 1/self.event_weight
+    def setWeightBranch(self, weight_branch):
+        self.weight_branch = weight_branch
     def setLumi(self, lumi):
-        self.lumi = lumi
+        self.lumi = lumi if lumi > 0 else 1/self.event_weight
     def loadHist(self, hist, branch_name, cut_string, max_entries, append=False):
         hist.GetDirectory().cd() 
         hist_name = "".join(["+" if append else "", hist.GetName()])

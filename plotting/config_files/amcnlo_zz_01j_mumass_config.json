@@ -1,0 +1,271 @@
+{  
+   "zz-amcnlo01j-mumass-l1Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 200
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "Lepton 1 p_{T}",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "zz-amcnlo01j-mumass-l1Eta": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": -7,
+            "xmax": 7
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "Lepton 1 #eta",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "zz-amcnlo01j-mumass-l2Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 200
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "Lepton 2 p_{T}",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "zz-amcnlo01j-mumass-l2Eta": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": -7,
+            "xmax": 7
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "Lepton 2 #eta",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "zz-amcnlo01j-mumass-j1Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": 20,
+            "xmax": 200
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "Leading Jet p_{T}",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "zz-amcnlo01j-mumass-j1Eta": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": -7,
+            "xmax": 7
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "Leading Jet #eta",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "zz-amcnlo01j-mumass-j2Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": 20,
+            "xmax": 200
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "Jet 2 p_{T}",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "zz-amcnlo01j-mumass-j2Eta": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": -7,
+            "xmax": 7
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "Jet 2 #eta",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "zz-amcnlo01j-mumass-nj": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 7,
+            "xmin": 0,
+            "xmax": 7
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "Number of p_{T} > 30 GeV GenJets",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "zz-amcnlo01j-mumass-Z1Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 300
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+  "zz-amcnlo01j-mumass-Z1mass": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": 60,
+            "xmax": 120
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineStyle": 1,
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "M_{Z} [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "zz-amcnlo01j-mumass-Z2Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 300
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "zz-amcnlo01j-mumass-Z2mass": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": 0,
+            "xmax": 120
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineStyle": 1,
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "M_{Z} [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "zz-amcnlo01j-mumass-Z3Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 300
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "zz-amcnlo01j-mumass-Z3mass": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": 60,
+            "xmax": 120
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineStyle": 1,
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "M_{Z} [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "zz-amcnlo01j-mumass-Z4Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 300
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+    "zz-amcnlo01j-mumass-Z4mass": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 80,
+            "xmin": 60,
+            "xmax": 120
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kGreen - 6",
+            "SetLineStyle": 1,
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "M_{Z} [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
+   "Canvas": {  
+        "Initialize": {  
+            "type": "TCanvas",
+            "ww": 800,
+            "wh": 600
+        },
+        "Attributes": {
+            "SetLeftMargin" : 1.2
+        }
+    }
+}
