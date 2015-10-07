@@ -18,7 +18,7 @@ def getComLineArgs():
     parser.add_argument("-a", "--analysis", type=str, choices=["WZ", "ZZ"],
                         required=True, help="Analysis: WZ or ZZ")
     parser.add_argument("-d","--default_cut", type=str, default="",
-                        choices=['', 'WZ', 'zMass'],
+                        choices=['ZZ', 'noTaus', 'WZ', 'zMass'],
                         help="Apply default cut string.")
     parser.add_argument("-c","--channel", type=str, default="",
                         choices=['eee', 'eem', 'emm', 'mmm',
@@ -48,9 +48,7 @@ def getCrossSections(histProducer, name, cut_string, max_entries):
     if cut_string is "":
         selectedXsec = initialXsec
     else:
-        histname = "l1Pt-" + name
-        hist = ROOT.TH1F(histname, histname, 100, 0, 1000)
-        histProducer.produce(hist, "l1Pt", cut_string, max_entries)
+        hist = histProducer.produce(name, "l1Pt", cut_string)
         selectedXsec = hist.Integral()
     return (initialXsec, selectedXsec)
 def getWeightMap(weight_ids):
@@ -125,9 +123,9 @@ def main():
         for row in metaTree:
             total_processed += row.nProcessedEvents
             #weight_ids = row.LHEweightIDs 
-        ntuple = plotter.buildChain(filename, "analyze%s/Ntuple" % args.analysis) 
-        ntuple.SetProof()
-        histProducer = WeightedHistProducer.WeightedHistProducer(ntuple, weight_info, "weight")  
+        #ntuple = plotter.buildChain(filename, "analyze%s/Ntuple" % args.analysis) 
+        #ntuple.SetProof()
+        histProducer = WeightedHistProducer.WeightedHistProducer(weight_info, "weight")  
         histProducer.setLumi(1)
         cut_string = helper.getCutString(args.default_cut, args.analysis, args.channel, args.make_cut)
         

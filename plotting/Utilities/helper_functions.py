@@ -15,6 +15,9 @@ def getCutString(default, analysis, channel, user_cut):
         cut_string = append_cut(cut_string, selection.getFiducialCutString("WZ", True))
     elif default == "zMass":
         cut_string = append_cut(cut_string, selection.getZMassCutString(analysis, True))
+    elif default == "noTaus":
+        num_leps = 3 if analysis == "WZ" else 4
+        return " && ".join(["abs(l%ipdgId) != 15 " % i for i in range(1, num_leps + 1)])
     if channel != "":
         cut_string = append_cut(cut_string, 
                 getattr(selection, "getChannel%sCutString" % channel.upper())())
