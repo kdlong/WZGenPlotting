@@ -9,6 +9,7 @@ import Utilities.helper_functions as helper
 import Utilities.WeightInfo as WeightInfo
 import Utilities.WeightedHistProducer as WeightedHistProducer
 from Utilities.prettytable import PrettyTable
+import Utilities.scalePDFUncertainties as Uncertainty
 
 def getComLineArgs():
     parser = argparse.ArgumentParser()
@@ -42,12 +43,15 @@ def getComLineArgs():
         exit(1)
     return args
 def getCrossSections(histProducer, name, cut_string, max_entries):
-    histname = "l1Pt-" + name
-    hist = ROOT.TH1F(histname, histname, 100, 0, 1000)
-    histProducer.produce(hist, "l1Pt", "", max_entries)
-    initialXsec = hist.Integral()
-    histProducer.produce(hist, "l1Pt", cut_string, max_entries)
-    selectedXsec = hist.Integral()
+    initialXsec = histProducer.getCrossSection()
+    print "The value returned is %f" % initialXsec
+    if cut_string is "":
+        selectedXsec = initialXsec
+    else:
+        histname = "l1Pt-" + name
+        hist = ROOT.TH1F(histname, histname, 100, 0, 1000)
+        histProducer.produce(hist, "l1Pt", cut_string, max_entries)
+        selectedXsec = hist.Integral()
     return (initialXsec, selectedXsec)
 def getWeightMap(weight_ids):
     scales = ["uR = 1, uF = 1", "uR = 1, uF = 2", "uR = 1, uF = 1/2", "uR = 2, uF = 1",
@@ -73,8 +77,11 @@ def getScalePDFVariations(histProducer, weight_ids, name, cut_string, max_entrie
         if "001" in weight:
             values["init"][weight] = []
             values["select"][weight] = []
+    
+    histProducer.setLumi(-1)
     for i, weight_id in enumerate(weight_ids):
         histProducer.setWeightBranch("weight*LHEweights[%i]/XWGTUP" % i)
+        #histProducer.setWeightBranch("LHEweights[%i]" % i)
         (initialXsec, selectedXsec) = getCrossSections(histProducer, name, cut_string, max_entries)
         table.add_row([weight_ids[i], initialXsec, selectedXsec])
         scale_type = "scale" if weight_ids[i] in [ "100%i" % i for i in range(1, 11)] else "pdf"
@@ -94,38 +101,10 @@ def getScalePDFVariations(histProducer, weight_ids, name, cut_string, max_entrie
     if printValues:
         print table
     return values
-def getScaleUncertainty(values):
-    scale_info = {}
-    for select in ["init", "select"]:
-        central = values["%s" % select]["1001"][0]
-        scale_info['%s_down' % select] = (1-min(values[select]["1001"])/central)*100
-        scale_info['%s_up' % select] = (max(values[select]["1001"])/central - 1)*100
-    return scale_info
-def getPDFUncertainty(values):
-    pdf_unc = { "init" : {}, "select" : {} }
-    for selection, value_map in values.iteritems():
-        for pdf_set in value_map:
-            print pdf_set
-            if "1001" not in pdf_set:
-                pdf_unc[selection][pdf_set] = 0
-    for selection in pdf_unc:
-        for pdf_set in pdf_unc[selection]:
-            print pdf_set
-            variance = 0
-            central = values[selection]["1001"][0]
-            print central
-            for value in values[selection][pdf_set][1:]:
-                variance += (value - central)*(value - central)
-            num = len(values[selection][pdf_set]) - 2
-            print variance
-            pdf_unc[selection][pdf_set] = math.sqrt(variance/(num))/central*100
-            print pdf_unc
-    print pdf_unc
-    return pdf_unc
 def main():
-    ROOT.gROOT.SetBatch(True)
     args = getComLineArgs()
-
+    ROOT.gROOT.SetBatch(True)
+    ROOT.TProof.Open('workers=12')
     print 'Script called at %s' % datetime.datetime.now()
     print 'The command was: %s\n' % ' '.join(sys.argv)
 
@@ -145,34 +124,41 @@ def main():
         weight_ids = []
         for row in metaTree:
             total_processed += row.nProcessedEvents
-            weight_ids = row.LHEweightIDs 
+            #weight_ids = row.LHEweightIDs 
         ntuple = plotter.buildChain(filename, "analyze%s/Ntuple" % args.analysis) 
+        ntuple.SetProof()
         histProducer = WeightedHistProducer.WeightedHistProducer(ntuple, weight_info, "weight")  
         histProducer.setLumi(1)
-        cut_string = helper.getCutString(args.default_cut, args.channel, args.make_cut)
+        cut_string = helper.getCutString(args.default_cut, args.analysis, args.channel, args.make_cut)
         
         (initialXsec, selectedXsec) = getCrossSections(histProducer, name, cut_string, args.max_entries)
-
+        print initialXsec 
+        print selectedXsec
         #if args.scale_uncertainty:
-        variations = getScalePDFVariations(histProducer, weight_ids, name, cut_string, args.max_entries)
-        scale_unc = getScaleUncertainty(variations)
-        pdf_unc = getPDFUncertainty(variations)
+        #variations = getScalePDFVariations(histProducer, weight_ids, name, cut_string, args.max_entries)
+        if args.scale_uncertainty:
+            variations = Uncertainty.getVariationsFromFile(metaTree, "LHEweightSums") 
+            scale_unc = Uncertainty.getScaleUncertainty(variations)
+            pdf_unc = Uncertainty.getPDFUncertainty(variations)
         print "_______________________________________________________________\n"
         print "Results for file: %s\n" % filename
         print "Total Number of events processed: %i" % total_processed 
-        print "Initial selection cross section is %f " % initialXsec
+        print "Initial selection cross section is %0.3f" % round(initialXsec, 3)
         if args.scale_uncertainty:
+            print "    Scale variation: +%0.3f -%0.3f" \
+                % (round(initialXsec*scale_unc["up"]/100, 3), round(initialXsec*scale_unc["down"]/100, 3))
             print "    Scale variation (percent): +%0.1f%% -%0.1f%%" \
-                % (scale_unc["init_up"], scale_unc["init_down"])
-            print pdf_unc["init"]
+                % (round(scale_unc["up"], 1), round(scale_unc["down"], 1))
+            print "    PDF uncertainty: +%0.2f -%0.3f" \
+                % (round(initialXsec*pdf_unc["2001"]/100, 3), round(initialXsec*pdf_unc["2001"]/100, 3))
             print "    PDF uncertainty (percent): +%0.1f%% -%0.1f%%" \
-                % (pdf_unc["init"]["2001"], pdf_unc["init"]["2001"])
-        print "Selection cross section is %f " % selectedXsec
-        if args.scale_uncertainty:
-            print "    Scale variation (percent): +%0.1f%% -%0.1f%%" \
-                % (scale_unc["select_up"], scale_unc["select_down"])
-            print "    PDF uncertainty (percent): +%0.1f%% -%0.1f%%" \
-                % (pdf_unc["select"]["2001"], pdf_unc["select"]["2001"])
+                % (round(pdf_unc["2001"], 1), round(pdf_unc["2001"], 1))
+        print "Selection cross section is %0.3f " % round(selectedXsec, 3)
+#        if args.scale_uncertainty:
+#            print "    Scale variation (percent): +%0.1f%% -%0.1f%%" \
+#                % (scale_unc["select_up"], scale_unc["select_down"])
+#            print "    PDF uncertainty (percent): +%0.1f%% -%0.1f%%" \
+#                % (pdf_unc["select"]["2001"], pdf_unc["select"]["2001"])
 
     print "_______________________________________________________________"
     print "\nSelections made using cut string:"

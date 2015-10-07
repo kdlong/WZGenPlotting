@@ -1,3 +1,5 @@
+import itertools
+
 def getEtaCutString(numLeptons):
     cut_string = ""
     for i in range(1, numLeptons+1):
@@ -20,22 +22,17 @@ def getZMassCutString(analysis, requireTrue):
         else:
             return "(Z1mass < 120 && Z2mass > 60"
     elif analysis == "ZZ":
-        return "((Z1mass < 120 && Z1mass > 60 && Z1isTrueZ) || " \
+        if requireTrue:
+            final_cut_string =[]
+            for i, j in itertools.combinations([1,2,3,4], 2):
+                cut_string = ["(Z%iisTrueZ && Z%iisTrueZ" % (i, j)]
+                cut_string += ["(Z%imass > 60 && Z%imass < 120)" % (i, i)]
+                cut_string += [ "(Z%imass > 60 && Z%imass < 120))" % (j, j)]
+                final_cut_string += [" && ".join(cut_string)]
+            return " || ".join(final_cut_string)
+        else:
+            return "((Z1mass < 120 && Z1mass > 60 && Z1isTrueZ) || " \
                  "(Z2mass < 120 && Z2mass > 60 && Z2isTrueZ))"
-
-#    for i in range(1, numZs+1):
-#        cut_string += "("
-#        cut_string += " && " if i > 1 else ""
-#        for j in range(1, numSavedZs+1):
-#            cut_string += " || " if j > 1 else ""
-#            cut_string += "(Z%imass > 60 && Z%imass < 120" % (j, j)
-#            cut_string += " && Z%iisTrueZ" % j
-#            append = ""
-#            for n in range(1, j):
-#                append += " && !Z%iisTrueZ " % n
-#            cut_string += append + ")"
-#        cut_string += ")"
-    return cut_string
 def getChannelEEMCutString():
     cut_string = "((abs(l1pdgId) == 11 && abs(l2pdgId) == 11 && abs(l3pdgId) == 13)" \
         " || (abs(l1pdgId) == 11 && abs(l2pdgId) == 13 && abs(l3pdgId) == 11)" \

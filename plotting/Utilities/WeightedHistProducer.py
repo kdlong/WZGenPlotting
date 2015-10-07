@@ -4,12 +4,15 @@ import WeightInfo
 class WeightedHistProducer(object):
     def __init__(self, chain, weight_info, weight_branch):
         self.histChain = chain 
+        #self.histChain.SetProof(ROOT.gProof)
         self.weight_info = weight_info 
         self.weight_branch = weight_branch
         self.event_weight = self.weight_info.getCrossSection()/self.weight_info.getSumOfWeights()
         self.lumi = 1/self.event_weight
     def setWeightBranch(self, weight_branch):
         self.weight_branch = weight_branch
+    def getCrossSection(self):
+        return self.weight_info.getCrossSection()
     def setLumi(self, lumi):
         self.lumi = lumi if lumi > 0 else 1/self.event_weight
     def loadHist(self, hist, branch_name, cut_string, max_entries, append=False):
@@ -30,6 +33,7 @@ class WeightedHistProducer(object):
         print hist.GetEntries()
         return num
     def produce(self, hist, branch_name, cut_string="", max_entries=-1, append=False): 
+        hist.Sumw2()
         self.loadHist(hist,
             branch_name,
             ''.join([self.weight_branch, "*(" + cut_string + ")" if cut_string != "" else ""]),

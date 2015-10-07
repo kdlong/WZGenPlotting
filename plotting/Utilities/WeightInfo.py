@@ -15,9 +15,8 @@ class WeightInfoProducer(object):
         
         for row in metaInfoChain:
             num_files += 1
-            self.cross_section += getattr(row, cross_section_branch)
+            self.cross_section = getattr(row, cross_section_branch)
             self.sum_of_weights += getattr(row, sum_weights_branch)
-        self.cross_section /= num_files
     def produce(self):
         return WeightInfo(self.cross_section, self.sum_of_weights)
 

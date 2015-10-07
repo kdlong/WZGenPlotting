@@ -9,12 +9,12 @@ import glob
 
 def append_cut(cut_string, cut):
     return ''.join([cut_string, "" if cut_string is "" else " && ", cut])
-def getCutString(default, channel, user_cut):
+def getCutString(default, analysis, channel, user_cut):
     cut_string = ""
     if default == "WZ":
         cut_string = append_cut(cut_string, selection.getFiducialCutString("WZ", True))
     elif default == "zMass":
-        cut_string = append_cut(cut_string, selection.getZMassCutString("WZ", True))
+        cut_string = append_cut(cut_string, selection.getZMassCutString(analysis, True))
     if channel != "":
         cut_string = append_cut(cut_string, 
                 getattr(selection, "getChannel%sCutString" % channel.upper())())
@@ -41,7 +41,7 @@ def getFileInfo(info_file):
     with open(info_file) as json_file:    
         file_info = json.load(json_file)
     return file_info
-def getHistFactory(info_file, filelist, analysis):
+def getHistFactory(info_file, filelist, analysis, use_proof):
     all_files = getFileInfo(info_file)
     file_info = {}
     for name in filelist:
@@ -55,6 +55,8 @@ def getHistFactory(info_file, filelist, analysis):
         weight_info = WeightInfo.WeightInfoProducer(metaTree, "fidXSection", "fidSumWeights").produce()
         ntuple = plotter.buildChain(file_info[name]["filename"], 
                 "analyze%s/Ntuple" % analysis) 
+        if use_proof:
+            ntuple.SetProof()
         histProducer = WeightedHistProducer.WeightedHistProducer(ntuple, weight_info, "weight")  
         file_info[name]["histProducer"] = histProducer
     return file_info

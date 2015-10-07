@@ -97,7 +97,7 @@ def plotStack(hist_stack, args):
     #hist_stack.GetHistogram().SetLabelSize(0.04)
     print "The title should be %s" % hist_stack.GetHistogram().GetXaxis().GetTitle()
     
-    xcoords = [.15, .55] if args.legend_left else [.50, .85]
+    xcoords = [.18, .58] if args.legend_left else [.50, .85]
     legend = ROOT.TLegend(xcoords[0], 0.65, xcoords[1], 0.85)
     legend.SetFillColor(0)
     histErrors = []
@@ -111,16 +111,17 @@ def plotStack(hist_stack, args):
     
     output_file_name = args.output_file
     if args.make_ratio:
-        split_canvas = plotter.splitCanvas(canvas, "stack", "01j FxFx", "incl")
+        split_canvas = plotter.splitCanvas(canvas, "stack", "PWG", "MG")
         split_canvas.Print(output_file_name)
     else:
         canvas.Print(output_file_name)
 def main():
-    #ROOT.gROOT.SetBatch(True)
+    ROOT.gROOT.SetBatch(True)
+    ROOT.TProof.Open('workers=8')
     args = getComLineArgs()
     filelist = [x.strip() for x in args.files_to_plot.split(",")]
     analysis = "WZ" if "wz" in args.files_to_plot else "ZZ"
-    hist_factory = helper.getHistFactory("config_files/file_info.json", filelist, analysis)
+    hist_factory = helper.getHistFactory("config_files/file_info.json", filelist, analysis, True)
     branches = [x.strip() for x in args.branches.split(",")]
     cut_string = helper.getCutString(args.default_cut, args.channel, args.make_cut)
     for branch in branches:
