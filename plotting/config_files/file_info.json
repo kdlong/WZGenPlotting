@@ -4,6 +4,11 @@
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_wz_config.json"
     },
+    "wz-pwg-wtaus" : {
+        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_withTaus-wzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_wz_config.json"
+    },
     "wz-pwg-noHP" : {
         "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_noHardProcess-wzGen_cfg/*",
         "title" : "POWHEG NLO incl",

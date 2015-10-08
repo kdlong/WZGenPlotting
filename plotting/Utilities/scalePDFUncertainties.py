@@ -1,14 +1,33 @@
 import math
-def getVariationsFromFile(meta_tree, row_name):
-    values = {}
-    for row in meta_tree:
-        weight_ids = row.LHEweightIDs
-        for i, weight_id in enumerate(weight_ids):
-            label = ''.join([weight_id[0], "001"]) 
-            if label not in values:
-                values.update( { label : {}})
-            values[label].update({weight_id : getattr(row, "LHEweightSums")[i]})
+import ROOT
+from collections import OrderedDict
+
+def getVariations(weight_ids, weight_sums):
+    values = OrderedDict()
+    if len(weight_ids) != len(weight_sums):
+        print "Should have equal number of weights and IDs!!!"
+        exit(1)
+    for weight in zip(weight_ids, weight_sums):
+        label = ''.join([weight[0][0], "001"]) 
+        if label not in values:
+            values.update( { label : {}})
+        values[label].update({weight[0] : weight[1]})
     return values
+
+def getFiducialWeightSums(proof_file_path, cut_string):
+    proof = ROOT.gProof
+    proof.Load("sumWeights.C+")
+    sumWeights = ROOT.sumWeights()
+    proof.Process(proof_file_path, sumWeights, cut_string)
+    summedWeightsHist = sumWeights.GetOutputList().FindObject('summedWeights')
+    canvas = ROOT.TCanvas("canvas", "canvas", 600, 800)
+    summedWeightsHist.Draw("hist")
+    canvas.Print("test.pdf")
+    sums = []
+    for i in xrange(1, summedWeightsHist.GetSize() + 1):
+        sums.append(summedWeightsHist.GetBinContent(i))
+    sums = sums[:sums.index(0.0)]
+    return sums
 def getScaleUncertainty(values):
     scale_info = {}
     central = values["1001"]["1001"]

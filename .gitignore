@@ -1,4 +1,5 @@
 SimpleGenAnalyzer
+scripts/sumWeights_*
 */*.pyc
 */*/*.pyc
 *.pdf
