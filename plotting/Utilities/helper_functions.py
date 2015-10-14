@@ -11,15 +11,15 @@ def append_cut(cut_string, cut):
     return ''.join([cut_string, "" if cut_string is "" else " && ", cut])
 def getCutString(default, analysis, channel, user_cut):
     cut_string = ""
-    if default == "WZ":
-        cut_string = append_cut(cut_string, selection.getFiducialCutString("WZ", True))
+    if default in ["WZ", "ZZ"]:
+        cut_string = append_cut(cut_string, selection.getFiducialCutString(default, True))
     elif default == "zMass":
         cut_string = append_cut(cut_string, selection.getZMassCutString(analysis, True))
     elif default == "noTaus":
         num_leps = 3 if analysis == "WZ" else 4
         return " && ".join(["abs(l%ipdgId) != 15 " % i for i in range(1, num_leps + 1)])
     if channel != "":
-        cut_string = append_cut(cut_string, 
+        cut_string = append_cut("(" + cut_string + ")" if cut_string != "" else "", 
                 getattr(selection, "getChannel%sCutString" % channel.upper())())
     if user_cut != "":
         cut_string = append_cut(cut_string, user_cut)
@@ -60,7 +60,7 @@ def getHistFactory(info_file, filelist, analysis, use_proof):
                 "analyze%s/Ntuple" % analysis) 
         if use_proof:
             ntuple.SetProof()
-        histProducer = WeightedHistProducer.WeightedHistProducer(ntuple, weight_info, "weight")  
+        histProducer = WeightedHistProducer.WeightedHistProducer(weight_info, "weight")  
         file_info[name]["histProducer"] = histProducer
     return file_info
 #def getTrueWHist(hist, histProducer, cut, max_events):

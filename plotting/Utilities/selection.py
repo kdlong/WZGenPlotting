@@ -5,7 +5,7 @@ def getEtaCutString(numLeptons):
     for i in range(1, numLeptons+1):
         if i != 1:
             cut_string += " && "
-        cut_string +=  "(abs(l%ipdgId) == 11 ? abs(l%iEta) < 2.5 : abs(l%iEta) < 2.5)" % (i, i, i)
+        cut_string +=  "(abs(l%ipdgId) == 11 ? abs(l%iEta) < 2.5 : abs(l%iEta) < 2.4)" % (i, i, i)
     return cut_string
 def getPtCutString(pt_cuts):
     cut_string = ""
@@ -29,10 +29,10 @@ def getZMassCutString(analysis, requireTrue):
                 cut_string += ["(Z%imass > 60 && Z%imass < 120)" % (i, i)]
                 cut_string += [ "(Z%imass > 60 && Z%imass < 120))" % (j, j)]
                 final_cut_string += [" && ".join(cut_string)]
-            return " || ".join(final_cut_string)
+            return "(" + " || ".join(final_cut_string) + ")"
         else:
-            return "((Z1mass < 120 && Z1mass > 60 && Z1isTrueZ) || " \
-                 "(Z2mass < 120 && Z2mass > 60 && Z2isTrueZ))"
+            return "((Z1mass < 120 && Z1mass > 60 && Z1isUnique) && " \
+                 "(Z2mass < 120 && Z2mass > 60 && Z2isUnique))"
 def getChannelEEMCutString():
     cut_string = "((abs(l1pdgId) == 11 && abs(l2pdgId) == 11 && abs(l3pdgId) == 13)" \
         " || (abs(l1pdgId) == 11 && abs(l2pdgId) == 13 && abs(l3pdgId) == 11)" \
@@ -64,17 +64,11 @@ def getChannelEEMMCutString():
         " || (abs(l1pdgId) == 11 && abs(l2pdgId) == 13 && abs(l3pdgId) == 11 && abs(l4pdgId) == 13))"
     return cut_string
 def getFiducialCutString(analysis, trueZ):
-    if analysis is "WZ":
+    if analysis == "WZ":
         numLeptons = 3
         pt_cuts = [20, 10, 10]
-        numZs = 1
-        numStoredZs = 2
     else:
         numLeptons = 4
-        pt_cuts = [20, 10, 10]
-        numZs = 2
-        numStoredZs = 4
-    cut_string = getEtaCutString(numLeptons)
-    cut_string += " && " + getPtCutString(pt_cuts)
-    cut_string += " && " + getZMassCutString(analysis, trueZ)
-    return cut_string
+        pt_cuts = [20, 10, 10, 10]
+    return " && ".join([getEtaCutString(numLeptons), getPtCutString(pt_cuts), 
+        getZMassCutString(analysis, trueZ)])

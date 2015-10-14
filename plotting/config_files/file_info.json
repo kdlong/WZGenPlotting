@@ -36,8 +36,13 @@
     },
     "wz2l2q-pwg" : {
         "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_WZto2L2Q/WZto2L2Q_powheg_pythia8_CUETP8M1_Ntuple.root",
-        "title" : "POWHEG NLO incl",
+        "title" : "POWHEG NLO incl (no weights)",
         "plot_config" : "powheg_wz2l2q_config.json"
+    },
+    "wz2l2q-pwg-nw" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_WZto2L2Q/WZto2L2Q_powheg_negweights_pythia8_CUETP8M1_Ntuple.root",
+        "title" : "POWHEG w/ neg weights",
+        "plot_config" : "powheg_wz2l2q_nw_config.json"
     },
     "wz1l3nu-amcnlo01j" : {
         "filename" : "/hdfs/store/user/kelong/MGNLO_Off_1L3Nu_GenNtuples-wz1l3nuGen_cfg/*",
@@ -94,8 +99,23 @@
         "title" : "MG5_aMC@NLO NLO ZZ inc (no mu mass)",
         "plot_config" : "amcnlo_zz_0j_config.json"
      },
+     "zz-pwg-wtaus" : {
+        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_withTaus-zzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
      "zz-pwg" : {
-        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_weights-zzGen_cfg/*",
+        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples-zzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
+     "zz-pwg-test" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_ZZ/ZZ_powheg_pythia8_CUETP8M1_officialSample_Ntuple.root",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
+     "zz-pwg-nofsr" : {
+        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_preFSR-zzGen_cfg/*",
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_zz_config.json"
     }

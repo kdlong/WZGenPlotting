@@ -47,40 +47,13 @@ def getStacked(file_info, branch_name, cut_string, max_entries):
         producer = entry["histProducer"]
         config = config_object.ConfigObject(
                 "./config_files/" + entry["plot_config"])
-        name = ''.join([name, "-", branch_name])
-        hist = config.getObject(name, entry["title"])
+        hist_name = ''.join([name, "-", branch_name])
+        hist = config.getObject(hist_name, entry["title"])
+        print hist
         producer.setLumi(1000)    
-        if branch_name == "trueW-mass":
-            producer.produce(hist, 
-                "W1mass", 
-                ''.join(["W1isTrueW", ''.join([" && (", cut_string, ")"]) if cut_string != "" else ""]), 
-                max_entries
-            )
-            for i in range(2, 4):
-                temp = hist.Clone(hist.GetName() + str(i))
-                producer.produce(temp, 
-                    "W%imass" % i, 
-                    ''.join(["W%iisTrueW" % i, ''.join([" && (", cut_string, ")"]) if cut_string != "" else ""]), 
-                    max_entries
-                )
-                hist.Add(temp)
-                del temp
-        elif branch_name == "trueZ-mass":
-            producer.produce(hist, 
-                "Z1mass", 
-                ''.join(["Z1isTrueZ", ''.join([" && (", cut_string, ")"]) if cut_string != "" else ""]), 
-                max_entries
-            )
-            for i in range(2, 3 if "wz" in name else 5):
-                temp = hist.Clone(hist.GetName() + str(i))
-                producer.produce(temp, 
-                    "Z%imass" % i, 
-                    ''.join(["Z%iisTrueZ" % i, ''.join([" && (", cut_string, ")"]) if cut_string != "" else ""]), 
-                    max_entries
-                )
-        else:
-            producer.produce(hist, branch_name, cut_string, max_entries)
-        config.setAttributes(hist, name)
+        hist = producer.produce(hist, branch_name, cut_string, "-".join([name, "gen"]))
+        config.setAttributes(hist, hist_name)
+        hist.SetTitle(entry["title"])
         hist_stack.Add(hist, "hist")
     return hist_stack
 def plotStack(hist_stack, args):
@@ -111,7 +84,7 @@ def plotStack(hist_stack, args):
     
     output_file_name = args.output_file
     if args.make_ratio:
-        split_canvas = plotter.splitCanvas(canvas, "stack", "PWG", "MG")
+        split_canvas = plotter.splitCanvas(canvas, "stack", "", "")
         split_canvas.Print(output_file_name)
     else:
         canvas.Print(output_file_name)
@@ -123,7 +96,7 @@ def main():
     analysis = "WZ" if "wz" in args.files_to_plot else "ZZ"
     hist_factory = helper.getHistFactory("config_files/file_info.json", filelist, analysis, True)
     branches = [x.strip() for x in args.branches.split(",")]
-    cut_string = helper.getCutString(args.default_cut, args.channel, args.make_cut)
+    cut_string = helper.getCutString(args.default_cut, analysis, args.channel, args.make_cut)
     for branch in branches:
         plotStack(getStacked(hist_factory, branch, cut_string, args.max_entries), args)
         

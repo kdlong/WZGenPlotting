@@ -57,8 +57,6 @@ def main():
     args = getComLineArgs()
     ROOT.gROOT.SetBatch(True)
     ROOT.TProof.Open('workers=12')
-    print 'Script called at %s' % datetime.datetime.now()
-    print 'The command was: %s\n' % ' '.join(sys.argv)
 
     file_info = helper.getFileInfo("../plotting/config_files/file_info.json")
     for name in args.filenames.split(","):
@@ -70,7 +68,7 @@ def main():
             name = "input"
 #        print filename
         metaTree = plotter.buildChain(filename, "analyze%s/MetaData" % args.analysis) 
-        weight_info = WeightInfo.WeightInfoProducer(metaTree, "fidXSection", "fidSumWeights").produce()
+        weight_info = WeightInfo.WeightInfoProducer(metaTree, "inputXSection", "initSumWeights").produce()
 #
         total_processed = 0
         summed_weights = []
@@ -104,23 +102,25 @@ def main():
                 pdf_unc[selection] = Uncertainty.getPDFUncertainty(variations)
 
         print "_______________________________________________________________\n"
+        print 'Script called at %s' % datetime.datetime.now()
+        print 'The command was: %s\n' % ' '.join(sys.argv)
         print "Results for file: %s\n" % filename
         print "Total Number of events processed: %i" % total_processed 
         print "Total Number of events selected: %i" % xsecs[2] if xsecs[2] > 0 else total_processed
-        print "Initial cross section is %0.3f" % round(cross_secs["init"], 3)
-        print "Selection cross section is %0.3f " % round(cross_secs["fid"], 3)
+        print "Initial cross section is %0.5f" % round(cross_secs["init"], 5)
+        print "Selection cross section is %0.5f " % round(cross_secs["fid"], 5)
         if args.scale_uncertainty:
             for selection in ["init", "fid"]:
                 print "\nUncertainties for %s" % selection
-                print "    Scale variation: +%0.3f -%0.3f" \
-                    % (round(cross_secs[selection]*scale_unc[selection]["up"]/100, 3), \
-                       round(cross_secs[selection]*scale_unc[selection]["down"]/100, 3))
+                print "    Scale variation: +%0.5f -%0.5f" \
+                    % (round(cross_secs[selection]*scale_unc[selection]["up"]/100, 5), \
+                       round(cross_secs[selection]*scale_unc[selection]["down"]/100, 5))
                 print "    Scale variation (percent): +%0.1f%% -%0.1f%%" \
                     % (round(scale_unc[selection]["up"], 1), \
                        round(scale_unc[selection]["down"], 1))
-                print "    PDF uncertainty: +%0.3f -%0.3f" \
-                    % (round(cross_secs[selection]*pdf_unc[selection]["2001"]/100, 3), \
-                       round(cross_secs[selection]*pdf_unc[selection]["2001"]/100, 3))
+                print "    PDF uncertainty: +%0.4f -%0.4f" \
+                    % (round(cross_secs[selection]*pdf_unc[selection]["2001"]/100, 5), \
+                       round(cross_secs[selection]*pdf_unc[selection]["2001"]/100, 5))
                 print "    PDF uncertainty (percent): +%0.1f%% -%0.1f%%" \
                     % (round(pdf_unc[selection]["2001"], 1), round(pdf_unc[selection]["2001"], 1))
 

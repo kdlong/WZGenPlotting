@@ -1,5 +1,5 @@
 {  
-   "wz2l2q-pwg-l1Pt": {  
+   "wz2l2q-pwg-nw-l1Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -7,14 +7,14 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 1 p_{T}",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz2l2q-pwg-l1Eta": {  
+   "wz2l2q-pwg-nw-l1Eta": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -22,14 +22,14 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 1 #eta",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz2l2q-pwg-l2Pt": {  
+   "wz2l2q-pwg-nw-l2Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -37,14 +37,14 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 2 p_{T}",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz2l2q-pwg-l2Eta": {  
+   "wz2l2q-pwg-nw-l2Eta": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -52,14 +52,14 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Lepton 2 #eta",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz2l2q-pwg-j1Pt": {  
+   "wz2l2q-pwg-nw-j1Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -67,14 +67,14 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Leading Jet p_{T}",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz2l2q-pwg-j1Eta": {  
+   "wz2l2q-pwg-nw-j1Eta": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -82,14 +82,14 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Leading Jet #eta",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz2l2q-pwg-j2Pt": {  
+   "wz2l2q-pwg-nw-j2Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -97,14 +97,14 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Jet 2 p_{T}",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz2l2q-pwg-j2Eta": {  
+   "wz2l2q-pwg-nw-j2Eta": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -112,14 +112,14 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Jet 2 #eta",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz2l2q-pwg-nj": {  
+   "wz2l2q-pwg-nw-nj": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 7,
@@ -127,14 +127,14 @@
             "xmax": 7
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "Number of p_{T} > 30 GeV GenJets",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz2l2q-pwg-WPt": {  
+    "wz2l2q-pwg-nw-WPt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -142,14 +142,14 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(W) [GeV]",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-  "wz2l2q-pwg-Wmass": {  
+  "wz2l2q-pwg-nw-Wmass": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -157,7 +157,7 @@
             "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -165,7 +165,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz2l2q-pwg-W2Pt": {  
+    "wz2l2q-pwg-nw-W2Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -173,14 +173,14 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(W) [GeV]",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz2l2q-pwg-W2mass": {  
+    "wz2l2q-pwg-nw-W2mass": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -188,7 +188,7 @@
             "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -196,7 +196,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-   "wz2l2q-pwg-ZPt": {  
+   "wz2l2q-pwg-nw-ZPt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -204,14 +204,14 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-  "wz2l2q-pwg-Zmass": {  
+  "wz2l2q-pwg-nw-Zmass": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 58,
@@ -219,7 +219,7 @@
             "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -227,7 +227,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz2l2q-pwg-Z2Pt": {  
+    "wz2l2q-pwg-nw-Z2Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -235,14 +235,14 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz2l2q-pwg-Z2mass": {  
+    "wz2l2q-pwg-nw-Z2mass": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -250,7 +250,7 @@
             "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -258,7 +258,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz2l2q-pwg-NuPt": {  
+    "wz2l2q-pwg-nw-NuPt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 50,
@@ -266,7 +266,7 @@
             "xmax": 200
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -274,7 +274,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz2l2q-pwg-trueZ-mass": {  
+    "wz2l2q-pwg-nw-trueZ-mass": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -282,7 +282,7 @@
             "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -290,7 +290,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz2l2q-pwg-trueZ-Pt": {  
+    "wz2l2q-pwg-nw-trueZ-Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -298,14 +298,14 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(W) [GeV]",  
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz2l2q-pwg-trueW-mass": {  
+    "wz2l2q-pwg-nw-trueW-mass": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 80,
@@ -313,7 +313,7 @@
             "xmax": 120
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineStyle": 1,
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
@@ -321,7 +321,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz2l2q-pwg-trueW-Pt": {  
+    "wz2l2q-pwg-nw-trueW-Pt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -329,7 +329,7 @@
             "xmax": 300
         },
         "Attributes": {  
-            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineColor": "ROOT.kGreen - 6",
             "SetLineWidth": 2,
             "SetMarkerSize" : 0,
             "GetXaxis().SetTitle": "p_{T}(W) [GeV]",  
