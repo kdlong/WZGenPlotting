@@ -20,6 +20,7 @@ class WeightedHistProducer(object):
         hist_name = hist.GetName()
         hist_exp = "%s(%i, %i, %i)" % (hist.GetName(), hist.GetSize() - 2, hist.GetXaxis().GetXmin(), hist.GetXaxis().GetXmax())
         print hist_exp
+        #branch_name = "abs(l1motherId) == 24 ? l1Pt : (abs(l2motherId) == 24 ? l2Pt : l3Pt)"
         cut_string = ''.join([self.weight_branch, "*(" + cut_string + ")" if cut_string != "" else ""])
         proof.DrawSelect(proof_path, ">>".join([branch_name, hist_exp]), cut_string, "goff")
         hist = proof.GetOutputList().FindObject(hist_name)

@@ -5,7 +5,7 @@
         "plot_config" : "powheg_wz_config.json"
     },
     "wz-pwg-wtaus" : {
-        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_withTaus-wzGen_cfg/*",
+        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_isHardProcess_withTaus-wzGen_cfg/*",
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_wz_config.json"
     },
@@ -79,8 +79,18 @@
         "title" : "MG5_aMC@NLO LO 0,1,2j",
         "plot_config" : "mglo_wz_012j_config.json"
      },
-     "zz-amcnlo01j" : {
-        "filename" : "/hdfs/store/user/kelong/MGNLO_Off_GenNtuples_Wtruth-zzGen_cfg/*",
+     "wz-pwg-hp" : {
+        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_isHardProcess-wzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_wzhp_config.json"
+    },
+     "zz-amcnlo01j-wtaus" : {
+        "filename" : "/hdfs/store/user/kelong/MGNLO_Off_GenNtuples_withTaus_isHardProcess-zzGen_cfg/*",
+        "title" : "MG5_aMC@NLO NLO ZZ+0,1j",
+        "plot_config" : "amcnlo_zz_01j_config.json"
+     },
+     "zz-amcnlo01j-hp" : {
+        "filename" : "/hdfs/store/user/kelong/MGNLO_Off_GenNtuples_isHardProcess-zzGen_cfg/*",
         "title" : "MG5_aMC@NLO NLO ZZ+0,1j",
         "plot_config" : "amcnlo_zz_01j_config.json"
      },
@@ -104,13 +114,28 @@
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_zz_config.json"
     },
+     "ggZZ4e" : {
+        "filename" : "/hdfs/store/user/kelong/ggZZ4e_GenNtuples_isHardProcess-zzGen_cfg/*",
+        "title" : "gg #rightarrow ZZ#rightarrow 4e",
+        "plot_config" : "powheg_zz_config.json"
+    },
+     "ggZZ2e2mu" : {
+        "filename" : "/hdfs/store/user/kelong/ggZZ2e2mu_GenNtuples_isHardProcess-zzGen_cfg/*",
+        "title" : "gg #rightarrow ZZ#rightarrow 2e2#mu",
+        "plot_config" : "powheg_zz_config.json"
+    },
      "zz-pwg" : {
         "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples-zzGen_cfg/*",
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_zz_config.json"
     },
+     "zz-pwg-hp" : {
+        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_isHardProcess-zzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
      "zz-pwg-test" : {
-        "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_ZZ/ZZ_powheg_pythia8_CUETP8M1_officialSample_Ntuple.root",
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_ZZ/ZZ_powheg_pythia8_CUETP8M1_officialSample_Ntuple_numEvent1000.root",
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_zz_config.json"
     },

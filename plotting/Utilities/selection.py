@@ -5,9 +5,14 @@ def getEtaCutString(numLeptons):
     for i in range(1, numLeptons+1):
         if i != 1:
             cut_string += " && "
-        cut_string +=  "(abs(l%ipdgId) == 11 ? abs(l%iEta) < 2.5 : abs(l%iEta) < 2.4)" % (i, i, i)
+        cut_string +=  "(abs(l%ipdgId) == 11 ? abs(l%iEta) < 2.5 : abs(l%iEta) < 2.5)" % (i, i, i)
     return cut_string
-def getPtCutString(pt_cuts):
+def getPtCutString(pt_cuts, analysis):
+    if analysis == "ZZvary":
+        return " && ".join(["l1Pt > 20 && l2Pt > 10"]+["(abs(l%ipdgId) == 11 ? (l%iPt > 7) : (l%iPt > 5))" % (i, i, i) for i in [3, 4]])
+    elif analysis == "WZvary":
+        #return "l1Pt > 20 && l2Pt > 20 && l3Pt > 10"
+        return "l1Pt > 20 && l2Pt > 20 && (abs(l3motherId) == 24 ? l3Pt > 20 : l3Pt > 10)"
     cut_string = ""
     for i, cut in enumerate(pt_cuts):
         if i != 0:
@@ -70,5 +75,6 @@ def getFiducialCutString(analysis, trueZ):
     else:
         numLeptons = 4
         pt_cuts = [20, 10, 10, 10]
-    return " && ".join([getEtaCutString(numLeptons), getPtCutString(pt_cuts), 
+    return " && ".join([getEtaCutString(numLeptons), 
+        getPtCutString(pt_cuts, analysis + ("vary" if analysis == "WZ" else "")), 
         getZMassCutString(analysis, trueZ)])

@@ -48,7 +48,6 @@ def getHistFactory(info_file, filelist, analysis, use_proof):
     all_files = getFileInfo(info_file)
     file_info = {}
     for name in filelist:
-        print "Name is %s at initialization" % name
         if name not in all_files.keys():
             print "%s is not a valid file name (must match a definition in %s)" % (filename, info_file)
             continue

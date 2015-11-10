@@ -20,8 +20,10 @@ Bool_t sumWeights::Process(Long64_t entry)
     return kFALSE;
   }
   fWeightsBranch->GetEntry(entry);
+  //fOrigWeightBranch->GetEntry(entry);
+  //std:cout << "Original weight is" << fOrigWeight << std::endl;
   for (size_t i = 0; i < fWeights->size(); i++) {
-    fSummedWeightsHist->Fill(i, fWeights->at(i));
+    fSummedWeightsHist->Fill(i, fWeights->at(i));//*fOrigWeight);
   }
   return kTRUE;
 }

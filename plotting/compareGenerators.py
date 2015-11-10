@@ -51,6 +51,15 @@ def getStacked(file_info, branch_name, cut_string, max_entries):
         hist = config.getObject(hist_name, entry["title"])
         print hist
         producer.setLumi(1000)    
+        aliases = {
+            "trueZmass" : "Z1isTrueZ"
+        }
+        alias_list = []
+        proof = ROOT.gProof
+        for alias_name, value in aliases.iteritems():
+            alias_list.append(alias_name)
+            proof.AddInput(ROOT.TNamed("alias:%s" % alias_name, value))
+        proof.AddInput(ROOT.TNamed("PROOF_ListOfAliases", ','.join(alias_list)))
         hist = producer.produce(hist, branch_name, cut_string, "-".join([name, "gen"]))
         config.setAttributes(hist, hist_name)
         hist.SetTitle(entry["title"])
@@ -89,9 +98,9 @@ def plotStack(hist_stack, args):
     else:
         canvas.Print(output_file_name)
 def main():
-    ROOT.gROOT.SetBatch(True)
-    ROOT.TProof.Open('workers=8')
     args = getComLineArgs()
+    ROOT.gROOT.SetBatch(True)
+    ROOT.TProof.Open('workers=24')
     filelist = [x.strip() for x in args.files_to_plot.split(",")]
     analysis = "WZ" if "wz" in args.files_to_plot else "ZZ"
     hist_factory = helper.getHistFactory("config_files/file_info.json", filelist, analysis, True)
@@ -99,6 +108,7 @@ def main():
     cut_string = helper.getCutString(args.default_cut, analysis, args.channel, args.make_cut)
     for branch in branches:
         plotStack(getStacked(hist_factory, branch, cut_string, args.max_entries), args)
+    print "Histogram made with cut string: \n%s" % cut_string 
         
 if __name__ == "__main__":
     main()

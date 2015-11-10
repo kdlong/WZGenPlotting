@@ -18,7 +18,7 @@ def getComLineArgs():
     parser.add_argument("-a", "--analysis", type=str, choices=["WZ", "ZZ"],
                         required=True, help="Analysis: WZ or ZZ")
     parser.add_argument("-d","--default_cut", type=str, default="",
-                        choices=['ZZ', 'noTaus', 'WZ', 'zMass'],
+                        choices=['ZZ', 'noTaus', 'WZ', 'zMass', 'ZZvar'],
                         help="Apply default cut string.")
     parser.add_argument("-c","--channel", type=str, default="",
                         choices=['eee', 'eem', 'emm', 'mmm',
@@ -49,24 +49,24 @@ def getCrossSections(histProducer, name, cut_string, max_entries):
     if cut_string is "":
         selectedXsec = initialXsec
     else:
-        hist = histProducer.produce(name, "l1Pt", cut_string)
+        hist = ROOT.TH1F("hist", "hist", 100, 0, 1000)
+        hist = histProducer.produce(hist, "l1Pt", cut_string, "-".join([name, "gen"]))
         selectedXsec = hist.Integral()
         entries = hist.GetEntries()
     return [initialXsec, selectedXsec, entries]
 def main():
     args = getComLineArgs()
     ROOT.gROOT.SetBatch(True)
-    ROOT.TProof.Open('workers=12')
+    ROOT.TProof.Open('workers=24')
 
     file_info = helper.getFileInfo("../plotting/config_files/file_info.json")
     for name in args.filenames.split(","):
         name = name.strip()
         if name in file_info.keys():
-            filename = file_info[name]["filename"]
+            filename = file_info[name]["filename"].rstrip("/*") + "/*"
         else:
             filename = name
             name = "input"
-#        print filename
         metaTree = plotter.buildChain(filename, "analyze%s/MetaData" % args.analysis) 
         weight_info = WeightInfo.WeightInfoProducer(metaTree, "inputXSection", "initSumWeights").produce()
 #
