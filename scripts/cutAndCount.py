@@ -28,7 +28,11 @@ def getComLineArgs():
                         help="Draw only first n entries of hist "
                         "(useful for huge root files)")
     parser.add_argument("-u", "--scale_uncertainty", action='store_true',
-                        help="Print scale uncertainties")
+                        help="Include scale/PDF uncertainties")
+    parser.add_argument("--print_scale", action='store_true',
+                        help="Print all values for scale uncertainties")
+    parser.add_argument("--print_pdf", action='store_true',
+                        help="Print all values for pdf variations")
     parser.add_argument("-f", "--filenames", type=str, required=True,
                         default="", help="List of root files with " 
                         "GenNutple format to run over, separated by commas. "
@@ -99,7 +103,7 @@ def main():
                     variations = Uncertainty.getVariations(weight_ids, 
                         Uncertainty.getFiducialWeightSums(name + "-gen", cut_string))
                 scale_unc[selection] = Uncertainty.getScaleUncertainty(variations)
-                pdf_unc[selection] = Uncertainty.getPDFUncertainty(variations)
+                pdf_unc[selection] = Uncertainty.getFullPDFUncertainty(variations)
 
         print "_______________________________________________________________\n"
         print 'Script called at %s' % datetime.datetime.now()
@@ -119,14 +123,21 @@ def main():
                     % (round(scale_unc[selection]["up"], 1), \
                        round(scale_unc[selection]["down"], 1))
                 print "    PDF uncertainty: +%0.4f -%0.4f" \
-                    % (round(cross_secs[selection]*pdf_unc[selection]["2001"]/100, 5), \
-                       round(cross_secs[selection]*pdf_unc[selection]["2001"]/100, 5))
+                    % (round(cross_secs[selection]*pdf_unc[selection]/100, 5), \
+                       round(cross_secs[selection]*pdf_unc[selection]/100, 5))
                 print "    PDF uncertainty (percent): +%0.1f%% -%0.1f%%" \
-                    % (round(pdf_unc[selection]["2001"], 1), round(pdf_unc[selection]["2001"], 1))
+                    % (round(pdf_unc[selection], 1), round(pdf_unc[selection], 1))
 
     print "_______________________________________________________________"
     print "\nSelections made using cut string:"
     print cut_string
     print "_______________________________________________________________"
+    if args.print_scale:
+        for key, value in variations["1001"].iteritems():
+            print "%s %s" % (key, value/variations["1001"]["1001"]*100 - 100)
+    if args.print_pdf:
+        for key, value in variations["2001"].iteritems():
+            print "%s %s" % (key, value/variations["1001"]["1001"])
+
 if __name__ == "__main__":
     main()

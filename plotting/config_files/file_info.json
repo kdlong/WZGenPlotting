@@ -1,6 +1,6 @@
 {
     "wz-pwg" : {
-        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_withSums_15_09_21-wzGen_cfg/*",
+        "filename" : "/data/kelong/GenAnalysis/powhegOff_GenNtuples_isHardProcess-wzGen_cfg/*",
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_wz_config.json"
     },
@@ -15,7 +15,7 @@
         "plot_config" : "powheg_wz_config.json"
     },
     "wz-amcnlo01j" : {
-        "filename" : "/hdfs/store/user/kelong/MGNLO_Off_GenNtuples_Wtruth-wzGen_cfg/*",
+        "filename" : "/hdfs/store/user/kelong/MGNLO_Off_GenNtuples-wzGen_cfg/*",
         "title" : "MG5_aMC@NLO NLO 0,1j",
         "plot_config" : "amcnlo_wz_01j_config.json"
     },
@@ -80,7 +80,7 @@
         "plot_config" : "mglo_wz_012j_config.json"
      },
      "wz-pwg-hp" : {
-        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_isHardProcess-wzGen_cfg/*",
+        "filename" : "/data/kelong/WZAnalysisData/GenAnalysis/powhegOff_GenNtuples_isHardProcess-wzGen_cfg/*",
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_wzhp_config.json"
     },
@@ -130,7 +130,7 @@
         "plot_config" : "powheg_zz_config.json"
     },
      "zz-pwg-hp" : {
-        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_isHardProcess-zzGen_cfg/*",
+        "filename" : "/data/kelong/WZAnalysisData/GenAnalysis/powhegOff_GenNtuples_isHardProcess-zzGen_cfg/*",
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_zz_config.json"
     },
