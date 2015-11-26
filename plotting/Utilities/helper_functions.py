@@ -11,10 +11,13 @@ def append_cut(cut_string, cut):
     return ''.join([cut_string, "" if cut_string is "" else " && ", cut])
 def getCutString(default, analysis, channel, user_cut):
     cut_string = ""
-    if default in ["WZ", "ZZ"]:
+    print "Default is %s" % default
+    if "WZ" in default or "ZZ" in default:
         cut_string = append_cut(cut_string, selection.getFiducialCutString(default, True))
     elif default == "zMass":
         cut_string = append_cut(cut_string, selection.getZMassCutString(analysis, True))
+    elif default == "zMass8TeV":
+        cut_string = append_cut(cut_string, selection.getZMassCutString(analysis + "8TeV", True))
     elif default == "noTaus":
         num_leps = 3 if analysis == "WZ" else 4
         return " && ".join(["abs(l%ipdgId) != 15 " % i for i in range(1, num_leps + 1)])

@@ -3,15 +3,17 @@ import ROOT
 from collections import OrderedDict
 
 def getVariations(weight_ids, weight_sums):
-    values = OrderedDict()
+    values = {"1001" : OrderedDict(), 
+            "2001" : OrderedDict(), 
+            "3001" : OrderedDict(),
+            "4001" : OrderedDict()
+    }
     if len(weight_ids) != len(weight_sums):
         print "Should have equal number of weights and IDs!!!"
         exit(1)
     for weight in zip(weight_ids, weight_sums):
         label = ''.join([weight[0][0], "001"]) 
-        if label not in values:
-            values.update( { label : {}})
-        values[label].update({weight[0] : weight[1]})
+        values[label][weight[0]] = weight[1]
     return values
 
 def getFiducialWeightSums(proof_file_path, cut_string):
@@ -22,7 +24,6 @@ def getFiducialWeightSums(proof_file_path, cut_string):
     summedWeightsHist = sumWeights.GetOutputList().FindObject('summedWeights')
     canvas = ROOT.TCanvas("canvas", "canvas", 600, 800)
     summedWeightsHist.Draw("hist")
-    canvas.Print("test.pdf")
     sums = []
     for i in xrange(1, summedWeightsHist.GetSize() + 1):
         sums.append(summedWeightsHist.GetBinContent(i))

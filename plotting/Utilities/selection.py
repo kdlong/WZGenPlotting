@@ -10,8 +10,7 @@ def getEtaCutString(numLeptons):
 def getPtCutString(pt_cuts, analysis):
     if analysis == "ZZvary":
         return " && ".join(["l1Pt > 20 && l2Pt > 10"]+["(abs(l%ipdgId) == 11 ? (l%iPt > 7) : (l%iPt > 5))" % (i, i, i) for i in [3, 4]])
-    elif analysis == "WZvary":
-        #return "l1Pt > 20 && l2Pt > 20 && l3Pt > 10"
+    elif "WZ" in analysis and "vary" in analysis:
         return "l1Pt > 20 && l2Pt > 20 && (abs(l3motherId) == 24 ? l3Pt > 20 : l3Pt > 10)"
     cut_string = ""
     for i, cut in enumerate(pt_cuts):
@@ -38,6 +37,8 @@ def getZMassCutString(analysis, requireTrue):
         else:
             return "((Z1mass < 120 && Z1mass > 60 && Z1isUnique) && " \
                  "(Z2mass < 120 && Z2mass > 60 && Z2isUnique))"
+    elif analysis == "WZ8TeV":
+        return "Z1mass < 111.11 && Z1mass > 71.11"
 def getChannelEEMCutString():
     cut_string = "((abs(l1pdgId) == 11 && abs(l2pdgId) == 11 && abs(l3pdgId) == 13)" \
         " || (abs(l1pdgId) == 11 && abs(l2pdgId) == 13 && abs(l3pdgId) == 11)" \
@@ -69,12 +70,12 @@ def getChannelEEMMCutString():
         " || (abs(l1pdgId) == 11 && abs(l2pdgId) == 13 && abs(l3pdgId) == 11 && abs(l4pdgId) == 13))"
     return cut_string
 def getFiducialCutString(analysis, trueZ):
-    if analysis == "WZ":
+    if "WZ" in analysis:
         numLeptons = 3
         pt_cuts = [20, 10, 10]
     else:
         numLeptons = 4
         pt_cuts = [20, 10, 10, 10]
     return " && ".join([getEtaCutString(numLeptons), 
-        getPtCutString(pt_cuts, analysis + ("vary" if analysis == "WZ" else "")), 
+        getPtCutString(pt_cuts, analysis + ("vary" if "WZ" in analysis else "")), 
         getZMassCutString(analysis, trueZ)])

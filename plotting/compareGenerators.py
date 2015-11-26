@@ -51,15 +51,6 @@ def getStacked(file_info, branch_name, cut_string, max_entries):
         hist = config.getObject(hist_name, entry["title"])
         print hist
         producer.setLumi(1000)    
-        aliases = {
-            "trueZmass" : "Z1isTrueZ"
-        }
-        alias_list = []
-        proof = ROOT.gProof
-        for alias_name, value in aliases.iteritems():
-            alias_list.append(alias_name)
-            proof.AddInput(ROOT.TNamed("alias:%s" % alias_name, value))
-        proof.AddInput(ROOT.TNamed("PROOF_ListOfAliases", ','.join(alias_list)))
         hist = producer.produce(hist, branch_name, cut_string, "-".join([name, "gen"]))
         config.setAttributes(hist, hist_name)
         hist.SetTitle(entry["title"])

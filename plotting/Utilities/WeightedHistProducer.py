@@ -16,15 +16,22 @@ class WeightedHistProducer(object):
         self.lumi = lumi if lumi > 0 else 1/self.event_weight
     def produce(self, hist, branch_name, cut_string="", proof_path=""): 
         proof = ROOT.gProof
-        print hist
         hist_name = hist.GetName()
         hist_exp = "%s(%i, %i, %i)" % (hist.GetName(), hist.GetSize() - 2, hist.GetXaxis().GetXmin(), hist.GetXaxis().GetXmax())
-        print hist_exp
         #branch_name = "abs(l1motherId) == 24 ? l1Pt : (abs(l2motherId) == 24 ? l2Pt : l3Pt)"
         cut_string = ''.join([self.weight_branch, "*(" + cut_string + ")" if cut_string != "" else ""])
+        aliases = {
+                "trueZmass" : "Z1isTrueZ ? Z1mass : (Z2isTrueZ ? Z2mass : Z3mass)",
+                "trueZmass" : "Z1isTrueZ ? Z1Pt : (Z2isTrueZ ? Z2Pt : Z3Pt)"
+        }
+        alias_list = []
+        proof = ROOT.gProof
+        for alias_name, value in aliases.iteritems():
+            alias_list.append(alias_name)
+            proof.AddInput(ROOT.TNamed("alias:%s" % alias_name, value))
+        proof.AddInput(ROOT.TNamed("PROOF_ListOfAliases", ','.join(alias_list)))
         proof.DrawSelect(proof_path, ">>".join([branch_name, hist_exp]), cut_string, "goff")
         hist = proof.GetOutputList().FindObject(hist_name)
-        print hist
         hist.Sumw2()
         hist.Scale(self.event_weight*self.lumi)
         return hist

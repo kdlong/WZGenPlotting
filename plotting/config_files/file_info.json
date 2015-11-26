@@ -84,6 +84,11 @@
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_wzhp_config.json"
     },
+     "wz8tev-pwg-npdfs" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_WZ_8TeV/Newest_PDFs/WZto2E1Mu1Nu_8TeV_newpdfs_powheg_pythia8_CUETP8M1_Ntuple.root",
+        "title" : "POWHEG 8 TeV NLO incl",
+        "plot_config" : "powheg_wzhp_config.json"
+    },
      "zz-amcnlo01j-wtaus" : {
         "filename" : "/hdfs/store/user/kelong/MGNLO_Off_GenNtuples_withTaus_isHardProcess-zzGen_cfg/*",
         "title" : "MG5_aMC@NLO NLO ZZ+0,1j",

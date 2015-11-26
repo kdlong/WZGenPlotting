@@ -14,6 +14,21 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
+   "wz-pwg-hp-Z1Pt": {  
+        "Initialize": {  
+            "type": "TH1F",
+            "nbins": 100,
+            "xmin": 0,
+            "xmax": 300
+        },
+        "Attributes": {  
+            "SetLineColor": "ROOT.kRed - 6",
+            "SetLineWidth": 2,
+            "SetMarkerSize" : 0,
+            "GetXaxis().SetTitle": "p_{T}(Z) [GeV]",  
+            "GetYaxis().SetTitle": "Events"  
+        }
+    },
    "wz-pwg-hp-l1Eta": {  
         "Initialize": {  
             "type": "TH1F",

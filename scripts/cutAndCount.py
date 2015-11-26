@@ -10,6 +10,7 @@ import Utilities.WeightInfo as WeightInfo
 import Utilities.WeightedHistProducer as WeightedHistProducer
 from Utilities.prettytable import PrettyTable
 import Utilities.scalePDFUncertainties as Uncertainty
+from collections import OrderedDict
 
 def getComLineArgs():
     parser = argparse.ArgumentParser()
@@ -18,7 +19,8 @@ def getComLineArgs():
     parser.add_argument("-a", "--analysis", type=str, choices=["WZ", "ZZ"],
                         required=True, help="Analysis: WZ or ZZ")
     parser.add_argument("-d","--default_cut", type=str, default="",
-                        choices=['ZZ', 'noTaus', 'WZ', 'zMass', 'ZZvar'],
+                        choices=['ZZ', 'noTaus', 'WZ', 'zMass', 'ZZvar', 
+                        'WZ8TeV', 'zMass8TeV'],
                         help="Apply default cut string.")
     parser.add_argument("-c","--channel", type=str, default="",
                         choices=['eee', 'eem', 'emm', 'mmm',
@@ -27,7 +29,7 @@ def getComLineArgs():
     parser.add_argument("-n", "--max_entries", type=int, default=-1,
                         help="Draw only first n entries of hist "
                         "(useful for huge root files)")
-    parser.add_argument("-u", "--scale_uncertainty", action='store_true',
+    parser.add_argument("-u", "--uncertainty", action='store_true',
                         help="Include scale/PDF uncertainties")
     parser.add_argument("--print_scale", action='store_true',
                         help="Print all values for scale uncertainties")
@@ -48,7 +50,6 @@ def getComLineArgs():
     return args
 def getCrossSections(histProducer, name, cut_string, max_entries):
     initialXsec = histProducer.getCrossSection()
-    print "The value returned is %f" % initialXsec
     entries = -1
     if cut_string is "":
         selectedXsec = initialXsec
@@ -67,7 +68,10 @@ def main():
     for name in args.filenames.split(","):
         name = name.strip()
         if name in file_info.keys():
-            filename = file_info[name]["filename"].rstrip("/*") + "/*"
+            if "*" in file_info[name]["filename"]:
+                filename = file_info[name]["filename"].rstrip("/*") + "/*"
+            else:
+                filename = file_info[name]["filename"]
         else:
             filename = name
             name = "input"
@@ -95,7 +99,7 @@ def main():
         variations = {"init" : {}, "fid" : {}}
         scale_unc = {"init" : {}, "fid" : {}}
         pdf_unc = {"init" : {}, "fid" : {}}
-        if args.scale_uncertainty:
+        if args.uncertainty:
             for selection in ["init", "fid"]:
                 if selection == "init" or cut_string == "":
                     variations = Uncertainty.getVariations(weight_ids, summed_weights) 
@@ -113,7 +117,7 @@ def main():
         print "Total Number of events selected: %i" % xsecs[2] if xsecs[2] > 0 else total_processed
         print "Initial cross section is %0.5f" % round(cross_secs["init"], 5)
         print "Selection cross section is %0.5f " % round(cross_secs["fid"], 5)
-        if args.scale_uncertainty:
+        if args.uncertainty:
             for selection in ["init", "fid"]:
                 print "\nUncertainties for %s" % selection
                 print "    Scale variation: +%0.5f -%0.5f" \
@@ -132,12 +136,30 @@ def main():
     print "\nSelections made using cut string:"
     print cut_string
     print "_______________________________________________________________"
-    if args.print_scale:
-        for key, value in variations["1001"].iteritems():
-            print "%s %s" % (key, value/variations["1001"]["1001"]*100 - 100)
-    if args.print_pdf:
-        for key, value in variations["2001"].iteritems():
-            print "%s %s" % (key, value/variations["1001"]["1001"])
+    if args.print_scale and args.uncertainty:
+        central = variations["1001"]["1001"]
+        xsec = cross_secs["fid"]*1000
+        print "Explicit scale values for fiducial region (in fb) were:"
+        scale_values = OrderedDict({"FacDownRenDown" : variations["1001"]["1009"]/central*xsec})
+        scale_values["facUprenUp"] = variations["1001"]["1005"]/central*xsec
+        scale_values["renDown"] = variations["1001"]["1007"]/central*xsec
+        scale_values["facUp"] = variations["1001"]["1002"]/central*xsec
+        scale_values["facDown"] = variations["1001"]["1003"]/central*xsec
+        scale_values["renUp"] = variations["1001"]["1004"]/central*xsec
+        format_string = " ".join(["{%i:^15}" %i for i in xrange(0,6)])
+        print format_string.format(*scale_values.keys())
+        print format_string.format(*[str(value) for value in scale_values.values()])
+        print "_______________________________________________________________"
+    if args.print_pdf and args.uncertainty:
+        print "Explicit values from pdf variations for fiducial region (in fb) were:"
+        central = variations["1001"]["1001"]
+        xsec = cross_secs["fid"]*1000
+        for weight_set in variations:
+            if weight_set == "1001": 
+                continue
+            for key, value in variations[weight_set].iteritems():
+                print "%s %s" % (key, value/variations["1001"]["1001"]*xsec)
+            print "_______________________________________________________________"
 
 if __name__ == "__main__":
     main()
