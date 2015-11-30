@@ -2,7 +2,7 @@ import itertools
 
 def getEtaCutString(numLeptons):
     #cut_string +=  "(abs(l%ipdgId) == 11 ? abs(l%iEta) < 2.5 : abs(l%iEta) < 2.5)" % (i, i, i)
-    cut_string = "(" + "&&".join(["abs(l%iEta) < 2.5" % i for i in range(1, numLeptons+1)]) + ")"
+    cut_string = "(" + " && ".join(["abs(l%iEta) < 2.5" % i for i in range(1, numLeptons+1)]) + ")"
     return cut_string
 def getPtCutString(pt_cuts, analysis):
     if analysis == "ZZvary":
