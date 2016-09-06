@@ -9,12 +9,10 @@ class WeightInfo(object):
 
 class WeightInfoProducer(object):
     def __init__(self, metaInfoChain, cross_section_branch, sum_weights_branch):
-        num_files = 0
         self.cross_section = 0
         self.sum_of_weights = 0
         
         for row in metaInfoChain:
-            num_files += 1
             self.cross_section = getattr(row, cross_section_branch)
             self.sum_of_weights += getattr(row, sum_weights_branch)
     def produce(self):

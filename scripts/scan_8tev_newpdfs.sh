@@ -9,7 +9,7 @@ do
         --print_scale \
         --print_pdf \
         > ~/www/DibosonCrossSections/WZ8TeV/NewPDFs/WZ8TeV_eem_Zwindow_ZPt_${zpt}.out
-    python cutAndCount.py -f wz8tev-pwg-npdfs -u -a WZ -d "WZ8TeV" \
+    python cutAndCount.py -f wz8tev-pwg-npdfs -u -a WZ -d "WZ8TeV" -m "NuPt > 30" \
         -m "Z1Pt > $zpt && Z1Pt < $[ $zpt + $count ]" \
         --print_scale \
         --print_pdf \
@@ -23,7 +23,7 @@ python cutAndCount.py -f wz8tev-pwg-npdfs -u -a WZ -d "zMass8TeV" \
     --print_scale \
     --print_pdf \
     > ~/www/DibosonCrossSections/WZ8TeV/NewPDFs/WZ8TeV_eem_Zwindow_ZPt_${zpt}.out
-python cutAndCount.py -f wz8tev-pwg-npdfs -u -a WZ -d "WZ8TeV" \
+python cutAndCount.py -f wz8tev-pwg-npdfs -u -a WZ -d "WZ8TeV" -m "NuPt > 30" \
     -m "Z1Pt > $zpt && Z1Pt < $[ $zpt + $count ]" \
     --print_scale \
     --print_pdf \
@@ -35,7 +35,7 @@ python cutAndCount.py -f wz8tev-pwg-npdfs -u -a WZ -d "zMass8TeV" \
     --print_scale \
     --print_pdf \
     > ~/www/DibosonCrossSections/WZ8TeV/NewPDFs/WZ8TeV_eem_Zwindow_ZPt_${zpt}.out
-python cutAndCount.py -f wz8tev-pwg-npdfs -u -a WZ -d "WZ8TeV" \
+ python cutAndCount.py -f wz8tev-pwg-npdfs -u -a WZ -d "WZ8TeV" -m "NuPt > 30" \
     -m "Z1Pt > $zpt && Z1Pt < $[ $zpt + $count ]" \
     --print_scale \
     --print_pdf \
@@ -46,7 +46,7 @@ python cutAndCount.py -f wz8tev-pwg-npdfs -u -a WZ -d "zMass8TeV" \
     --print_scale \
     --print_pdf \
     > ~/www/DibosonCrossSections/WZ8TeV/NewPDFs/WZ8TeV_eem_Zwindow_ZPt_${zpt}.out
-python cutAndCount.py -f wz8tev-pwg-npdfs -u -a WZ -d "WZ8TeV" \
+python cutAndCount.py -f wz8tev-pwg-npdfs -u -a WZ -d "WZ8TeV" -m "NuPt > 30" \
     -m "Z1Pt > $zpt" \
     --print_scale \
     --print_pdf \

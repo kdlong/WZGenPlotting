@@ -1,7 +1,7 @@
 {
     "wz-pwg" : {
-        "filename" : "/data/kelong/GenAnalysis/powhegOff_GenNtuples_isHardProcess-wzGen_cfg/*",
-        "title" : "POWHEG NLO incl",
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_2015-12-05-wzGen_cfg/*",
+        "title" : "POWHEG Official Sample",
         "plot_config" : "powheg_wz_config.json"
     },
     "wz-pwg-wtaus" : {
@@ -14,10 +14,10 @@
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_wz_config.json"
     },
-    "wz-amcnlo01j" : {
-        "filename" : "/hdfs/store/user/kelong/MGNLO_Off_GenNtuples-wzGen_cfg/*",
-        "title" : "MG5_aMC@NLO NLO 0,1j",
-        "plot_config" : "amcnlo_wz_01j_config.json"
+    "wz-amcnlo01j-new" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/MG5aMCatNLO_WZ01j_OfficialGridpack/new_gridpack/MG5aMCatNLO_WZ01j_OfficialGridpack_new_pythia8_TuneCUETP8M1_Ntuple.root",
+        "title" : "MG5_aMC@NLO New tarball",
+        "plot_config" : "amcnlo_wz_new_01j_config.json"
     },
     "wz-amcnlo0j-ERROR" : {
         "filename" : "/data/kelong/DibosonGenAnalysisSamples/MG5aMCatNLO_WZ0j_OfficialGridpack/MG5aMCatNLO_WZ0j_OfficialGridpack_pythia8_TuneCUETP8M1_Ntuple.root",
@@ -25,7 +25,7 @@
         "plot_config" : "amcnlo_wz_0j_config.json"
     },
     "wz-amcnlo0j" : {
-        "filename" : "/data/kelong/DibosonGenAnalysisSamples/MG5aMCatNLO_WZ0j/MG5aMCatNLO_WZ0j_pythia8_TuneCUETP8M1_Ntuple.root",
+        "filename" : "/hdfs/store/user/kelong/MGNLO_Off_GenNtuples-wzGen_cfg/*",
         "title" : "MG5_aMC@NLO NLO incl",
         "plot_config" : "amcnlo_wz_0j_config.json"
     },
@@ -43,11 +43,6 @@
         "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_WZto2L2Q/WZto2L2Q_powheg_negweights_pythia8_CUETP8M1_Ntuple.root",
         "title" : "POWHEG w/ neg weights",
         "plot_config" : "powheg_wz2l2q_nw_config.json"
-    },
-    "wz1l3nu-amcnlo01j" : {
-        "filename" : "/hdfs/store/user/kelong/MGNLO_Off_1L3Nu_GenNtuples-wz1l3nuGen_cfg/*",
-        "title" : "POWHEG NLO incl",
-        "plot_config" : "amcnlo_wz2l2q_01j_config.json"
     },
     "wz1l1nu2q-amcnlo01j" : {
         "filename" : "/hdfs/store/user/kelong/MGNLO_Off_1L1Nu2Q_GenNtuples-wzTruthGen_cfg/*",
@@ -69,6 +64,11 @@
         "title" : "MG5_aMC@NLO LO incl",
         "plot_config" : "mglo_wz_0j_config.json"
     },
+    "wzjj-qcd" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/WZJJ_QCD-MGLO_Off_GenNtuples_leptonType-dressed_2016-09-06-wzGen_cfg/*",
+        "title" : "MG5_aMC@NLO LO 0,1j",
+        "plot_config" : "mglo_wz_01j_config.json"
+    },
     "wz-mglo01j" : {
         "filename" : "/data/kelong/DibosonGenAnalysisSamples/MGLO_WZ01j/MGLO_WZ01j_10E5ev_pythia8_MLM_Ntuple_onlyZcut.root",
         "title" : "MG5_aMC@NLO LO 0,1j",
@@ -80,7 +80,27 @@
         "plot_config" : "mglo_wz_012j_config.json"
      },
      "wz-pwg-hp" : {
-        "filename" : "/data/kelong/WZAnalysisData/GenAnalysis/powhegOff_GenNtuples_isHardProcess-wzGen_cfg/*",
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_isHardProcess_2016-02-14-wzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_wzhp_config.json"
+    },
+     "wz-pwg-taudecays" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_fromTauDecay-wzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_wzhp_config.json"
+    },
+     "zz-pwg-taudecays" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_fromTauDecay-zzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_wzhp_config.json"
+    },
+     "wz-pwg-taudecays-fs" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_finalStateTauDecay-wzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_wzhp_config.json"
+    },
+     "zz-pwg-taudecays-fs" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_finalStateTauDecay-zzGen_cfg/*",
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_wzhp_config.json"
     },
@@ -90,7 +110,7 @@
         "plot_config" : "powheg_wzhp_config.json"
     },
      "wz8tev-pwg-13pdfs" : {
-        "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_WZ_8TeV/2013_PDFs/WZto2Mu1E1Nu_8TeV_2013pdfs_powheg_pythia8_CUETP8M1_Ntuple.root",
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_WZ_8TeV/2013_PDFs/WZto2Mu1E1Nu_8TeV_2013pdfs_powheg_pythia8_CUETP8M1_ak4jets_Ntuple.root",
         "title" : "POWHEG 8 TeV NLO incl",
         "plot_config" : "powheg_wzhp_config.json"
     },
@@ -130,18 +150,128 @@
         "plot_config" : "powheg_zz_config.json"
     },
      "ggZZ2e2mu" : {
-        "filename" : "/hdfs/store/user/kelong/ggZZ2e2mu_GenNtuples_isHardProcess-zzGen_cfg/*",
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/ggZZ2e2mu_GenNtuples_isHardProcess_2016-02-16-zzGen_cfg/*",
         "title" : "gg #rightarrow ZZ#rightarrow 2e2#mu",
         "plot_config" : "powheg_zz_config.json"
     },
      "zz-pwg" : {
-        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples-zzGen_cfg/*",
+        "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_2016-02-02-zzGen_cfg/*",
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_zz_config.json"
     },
+    "zz_eemm-pwg-doubleres" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_ZZ_doubleRes/ZZ_eemm_doubleresonant_powheg_pythia8_CUETP8M1_Ntuple.root",
+        "title" : "POWHEG Double Res.",
+        "plot_config" : "powheg_zz_config.json"
+    },
+    "zz_eemm-8tev-pwg-doubleres" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_ZZ_doubleRes/8TeV/ZZ_eemm_8TeV_doubleresonant_powheg_pythia8_CUETP8M1_Ntuple.root",
+        "title" : "POWHEG Double Res.",
+        "plot_config" : "powheg_zz_config.json"
+    },
+    "zz_eeee-pwg-doubleres" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_ZZ_doubleRes/ZZ_eeee_doubleresonant_powheg_pythia8_CUETP8M1_Ntuple.root",
+        "title" : "POWHEG Double Res.",
+        "plot_config" : "powheg_zz_config.json"
+    },
+    "z-eemm-mglo" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/Z4l_MG5aMCatNLO/pp_Z_2e2mu_mg5amcatnlo_LO_pythia8_TuneCUETP8M1_Ntuple.root",
+        "title" : "MG5_aMC LO pp#rightarrow Z #rightarrow ee#mu#mu.",
+        "plot_config" : "powheg_zz_config.json"
+    },
+    "zz-mglo-doubleres" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/Z4l_MG5aMCatNLO/pp_2e2mu_doubleres_mg5amcatnlo_LO_pythia8_TuneCUETP8M1_Ntuple.root",
+        "title" : "MG5_aMC LO pp#rightarrow Z #rightarrow ee#mu#mu.",
+        "plot_config" : "powheg_zz_config.json"
+    },
+    "zz-mglo-singleres" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/Z4l_MG5aMCatNLO/pp_2e2mu_singleres_mg5amcatnlo_LO_pythia8_TuneCUETP8M1_Ntuple.root",
+        "title" : "MG5_aMC LO pp#rightarrow Z #rightarrow ee#mu#mu.",
+        "plot_config" : "powheg_zz_config.json"
+    },
+    "zz-eemm-mglo" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/Z4l_MG5aMCatNLO/pp_ZZ_2e2mu_mg5amcatnlo_LO_pythia8_TuneCUETP8M1_Ntuple.root",
+        "title" : "MG5_aMC LO pp#rightarrow ee#mu#mu.",
+        "plot_config" : "powheg_zz_config.json"
+    },
+    "eemm-mglo" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/Z4l_MG5aMCatNLO/pp_2e2mu_mg5amcatnlo_LO_pythia8_TuneCUETP8M1_Ntuple.root",
+        "title" : "MG5_aMC LO pp#rightarrow ee#mu#mu.",
+        "plot_config" : "powheg_zz_config.json"
+    },
      "zz-pwg-hp" : {
-        "filename" : "/data/kelong/WZAnalysisData/GenAnalysis/powhegOff_GenNtuples_isHardProcess-zzGen_cfg/*",
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_isHardProcess_2016-02-14-zzGen_cfg/*",
         "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
+     "wz-pwg-dress" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_leptonType-dressed_2016-05-11-wzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_wz_config.json"
+    },
+     "wz-pwg-fix-dress" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_WZ/WZTo2Mu1E1Nu_fixedscale_powheg_pythia8_Ntuple_leptonType-dressed.root",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_wz_config.json"
+    },
+     "wz-pwg-fromHPFS" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_leptonType-fromHardProcessFS_2016-05-06-wzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_wz_config.json"
+    },
+     "wz-amcnlo01j-fromHPFS" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/MGNLO_Off_76X_GenNtuples_leptonType-fromHardProcessFS_2016-05-06-wzGen_cfg/*",
+        "title" : "MG NLO FxFx",
+        "plot_config" : "amcnlo_wz_01j_config.json"
+    },
+     "wz-amcnlo01j-dress" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/MGNLO_Off_76X_GenNtuples_leptonType-dressed_2016-05-12-wzGen_cfg/*",
+        "title" : "MG NLO FxFx",
+        "plot_config" : "amcnlo_wz_01j_config.json"
+    },
+     "wz-amcnlo0j-fix-dress" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/MG5aMCatNLO_WZ0j/WZTo2Mu1E1Nu_mg5amcnlo_inc_pythia8_Ntuple_leptonType-dressed.root",
+        "title" : "MG NLO fixed",
+        "plot_config" : "amcnlo_wz_0j_config.json"
+    },
+     "wz-amcnlo0j-fromHPFS" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/MG5aMCatNLO_WZ0j/MG5aMCatNLO_WZ0j_pythia8_TuneCUETP8M1_Ntuple_leptonType-fromHardProcessFS.root",
+        "title" : "MG NLO FxFx",
+        "plot_config" : "amcnlo_wz_01j_config.json"
+    },
+     "wz-amcnlo0j-dress" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/MG5aMCatNLO_WZ0j/MG5aMCatNLO_WZ0j_pythia8_TuneCUETP8M1_Ntuple_leptonType-dressed.root",
+        "title" : "MG NLO FxFx",
+        "plot_config" : "amcnlo_wz_01j_config.json"
+    },
+     "zz-eemm-8tev-pwg-off" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_ZZto2e2mu8TeV_2016-03-20-zzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
+     "zz-eemm-8tev-pwg" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/POWHEG_ZZ/ZZ_eemm_8TeV_powheg_pythia8_CUETP8M1_Ntuple.root",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
+     "zz-4e-8tev-pwg" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_ZZto4e8TeV_2016-03-21-zzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
+     "zz-4e-7tev-pwg" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_ZZto4e7TeV_2016-03-21-zzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
+     "ww-pwg-hp" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_GenNtuples_isHardProcess_2016-02-21-wwGen_cfg/*",
+        "title" : "POWHEG WW NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
+     "ww-mgnlo" : {
+        "filename" : "/data/kelong/DibosonGenAnalysisSamples/WW_nodecay/WW_MG5aMC_nodecay_pdf_pythia8_TuneCUETP8M1_Ntuple.root",
+        "title" : "POWHEG WW NLO incl",
         "plot_config" : "powheg_zz_config.json"
     },
      "zz-pwg-test" : {
@@ -151,6 +281,21 @@
     },
      "zz-pwg-nofsr" : {
         "filename" : "/hdfs/store/user/kelong/powhegOff_GenNtuples_preFSR-zzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
+     "dym50" : {
+        "filename" : "/hdfs/store/user/kdlong/DrellYan_m50_mg5amcatnlo_GenNtuples_2016-01-31-zzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
+     "dyeeM50" : {
+        "filename" : "/data/kelong/DibosonAnalysisData/GenAnalysis/powhegOff_DYeeM50_GenNtuples_isHardProcess_2016-02-28-zzGen_cfg/*",
+        "title" : "POWHEG NLO incl",
+        "plot_config" : "powheg_zz_config.json"
+    },
+     "dymmM20-8tev" : {
+        "filename" : "/hdfs/store/user/kelong/powhegOff_DYmmM20_8TeV_GenNtuples_isHardProcess_2016-03-22-zzGen_cfg/*",
         "title" : "POWHEG NLO incl",
         "plot_config" : "powheg_zz_config.json"
     }

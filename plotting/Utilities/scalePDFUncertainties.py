@@ -1,6 +1,7 @@
 import math
 import ROOT
 from collections import OrderedDict
+import numpy
 
 def getVariations(weight_ids, weight_sums):
     values = {"1001" : OrderedDict(), 
@@ -11,9 +12,22 @@ def getVariations(weight_ids, weight_sums):
     if len(weight_ids) != len(weight_sums):
         print "Should have equal number of weights and IDs!!!"
         exit(1)
-    for weight in zip(weight_ids, weight_sums):
-        label = ''.join([weight[0][0], "001"]) 
-        values[label][weight[0]] = weight[1]
+    if float(weight_ids[0]) > 10:
+        for weight in zip(weight_ids, weight_sums):
+            label = ''.join([weight[0][0], "001"]) 
+            values[label][weight[0]] = weight[1]
+    else:
+        # Hackity hack hack for MadGraph LO samples
+        for i,weight in enumerate(zip(weight_ids, weight_sums)):
+            entry = 1
+            weight_id = str(1000+i+1)
+            if i > 8:
+                entry = 2
+                weight_id = str(2000+i-8)
+            label = ''.join([str(entry), "001"]) 
+            values[label][weight_id] = weight[1]
+            if i > 109:
+                break
     return values
 
 def getFiducialWeightSums(proof_file_path, cut_string):
@@ -51,7 +65,7 @@ def getNNPDFUncertainty(values):
     pdf_unc = {}
     central = values["1001"]["1001"]
     # These are alpha_s variations
-    exclude = ["2001", "2002"]
+    exclude = ["2102", "2101"]
     variations = [value for key, value in values["2001"].iteritems() if key not in exclude]
     variance = 0
     for xsec in variations:
@@ -59,11 +73,11 @@ def getNNPDFUncertainty(values):
         num = len(variations) - 1
     return math.sqrt(variance/(num))/central*100
 # Combine PDF fit and alpha_s uncertainties according to PDF4LHC recommendation.
-# Equation 30 in http://arxiv.org/pdf/1510.03865v1.pdf, with r = 0.75
-# (alpha_s uncertainty is +- 0.0015, and we use 0.120 and 0.116 PDF sets)
+# Equation 30 in http://arxiv.org/pdf/1510.03865v1.pdf, with r = 1.5
+# (alpha_s uncertainty is +- 0.0015, and we use 0.119 and 0.117 PDF sets)
 def getFullPDFUncertainty(values):
     pdf_unc = getNNPDFUncertainty(values)
     alpha_s_unc = getAlphaSUncertainty(values)
     # Taken to give the +- 0.00015 variation
-    r = 0.75
+    r = 1.5
     return math.sqrt(pdf_unc*pdf_unc + r*r*alpha_s_unc*alpha_s_unc)

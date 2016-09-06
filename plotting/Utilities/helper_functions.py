@@ -7,17 +7,63 @@ import json
 import os
 import glob
 
+def getCrossSections(histProducer, name, cut_string):
+    initialXsec = histProducer.getCrossSection()
+    entries = -1
+    if cut_string is "":
+        selectedXsec = initialXsec
+    else:
+        hist = ROOT.TH1F("hist", "hist", 100, 0, 1000)
+        hist = histProducer.produce(hist, "l1Pt", cut_string, "-".join([name, "gen"]))
+        selectedXsec = hist.Integral()
+        entries = hist.GetEntries()
+    return [initialXsec, selectedXsec, entries]
+def getMetaInfo(filename, analysis):
+    metaInfo = {}
+    metaTree = plotter.buildChain(filename, "analyze%s/MetaData" % analysis) 
+    metaInfo["total_processed"] = 0
+    metaInfo["cross_section"] = 0
+    metaInfo["summed_weights"] = []
+    metaInfo["initSumWeights"] = 0
+    metaInfo["weight_ids"] = []
+    for row in metaTree:
+        if not metaInfo["summed_weights"]:
+            metaInfo["summed_weights"] = [0]*len(row.initLHEweightSums)
+            for i, weight_id in enumerate(row.initLHEweightSums):
+                metaInfo["weight_ids"].append(row.LHEweightIDs[i])
+        metaInfo["cross_section"] = row.inputXSection
+        metaInfo["total_processed"] += row.nProcessedEvents
+        metaInfo["initSumWeights"] += row.initSumWeights
+        for i, weight in enumerate(row.initLHEweightSums):
+            metaInfo["summed_weights"][i] += weight
+    return metaInfo
+def getCrossSectionsFromFile(filename, dataset_name, metaInfo, analysis, cut_string):
+    metaTree = plotter.buildChain(filename, "analyze%s/MetaData" % analysis) 
+    weight_info = WeightInfo.WeightInfo(metaInfo["cross_section"], metaInfo["initSumWeights"])
+    histProducer = WeightedHistProducer.WeightedHistProducer(weight_info, "weight")  
+    histProducer.setLumi(1)
+    return getCrossSections(histProducer, dataset_name, cut_string)
 def append_cut(cut_string, cut):
     return ''.join([cut_string, "" if cut_string is "" else " && ", cut])
 def getCutString(default, analysis, channel, user_cut):
     cut_string = ""
-    print "Default is %s" % default
     if "WZ" in default or "ZZ" in default:
-        cut_string = append_cut(cut_string, selection.getFiducialCutString(default, True))
+        if "notrue" not in default:
+            cut_string = append_cut(cut_string, selection.getFiducialCutString(default, True))
+        else:
+            cut_string = append_cut(cut_string, selection.getFiducialCutString(default, False))
     elif default == "zMass":
         cut_string = append_cut(cut_string, selection.getZMassCutString(analysis, True))
+    elif default == "Z1mass":
+        cut_string = append_cut(cut_string, selection.getZMassCutString(analysis, False))
     elif default == "zMass8TeV":
         cut_string = append_cut(cut_string, selection.getZMassCutString(analysis + "8TeV", True))
+    elif default == "Z4l":
+        cut_string = append_cut(cut_string, selection.getFiducialCutString("Z4l", True))
+        cut_string = append_cut(cut_string, "(4lmass > 80 && 4lmass < 100)")
+    elif default == "Z4lmass":
+        cut_string = append_cut(cut_string, selection.getZMassCutString("Z4l", True))
+        cut_string = append_cut(cut_string, "(4lmass > 80 && 4lmass < 100)")
     elif default == "noTaus":
         num_leps = 3 if analysis == "WZ" else 4
         return " && ".join(["abs(l%ipdgId) != 15 " % i for i in range(1, num_leps + 1)])

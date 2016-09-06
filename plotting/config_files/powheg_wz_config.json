@@ -216,7 +216,7 @@
             "type": "TH1F",
             "nbins": 40,
             "xmin": 4,
-            "xmax": 30
+            "xmax": 120
         },
         "Attributes": {  
             "SetLineColor": "ROOT.kRed - 6",
@@ -274,11 +274,11 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz-pwg-trueZ-mass": {  
+    "wz-pwg-trueZmass": {  
         "Initialize": {  
             "type": "TH1F",
-            "nbins": 80,
-            "xmin": 20,
+            "nbins": 40,
+            "xmin": 40,
             "xmax": 120
         },
         "Attributes": {  
@@ -290,7 +290,7 @@
             "GetYaxis().SetTitle": "Events"  
         }
     },
-    "wz-pwg-trueZ-Pt": {  
+    "wz-pwg-trueZPt": {  
         "Initialize": {  
             "type": "TH1F",
             "nbins": 100,
@@ -308,7 +308,7 @@
     "wz-pwg-trueW-mass": {  
         "Initialize": {  
             "type": "TH1F",
-            "nbins": 80,
+            "nbins": 40,
             "xmin": 20,
             "xmax": 120
         },

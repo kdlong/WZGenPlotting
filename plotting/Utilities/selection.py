@@ -16,17 +16,19 @@ def getPtCutString(pt_cuts, analysis):
         cut_string += "l%iPt > %s " % ((i +1), str(cut))
     return cut_string
 def getZMassCutString(analysis, requireTrue):
-    if analysis == "WZ":
+    if analysis == "WZ8TeV":
+        return "Z1mass < 111.19 && Z1mass > 71.19"
+    elif "WZ" in analysis:
         if requireTrue:
-            return "((Z1mass < 120 && Z1mass > 60 && Z1isTrueZ) || " \
-                   "(Z2mass < 120 && Z2mass > 60 && Z2isTrueZ))"
+            return "((Z1mass < 120 && Z1mass > 60 && Z1isTrueDecay) || " \
+                   "(Z2mass < 120 && Z2mass > 60 && Z2isTrueDecay))"
         else:
-            return "(Z1mass < 120 && Z2mass > 60"
-    elif analysis == "ZZ":
+            return "(Z1mass < 106.1876 && Z1mass > 76.1876)"
+    elif "ZZ" in analysis:
         if requireTrue:
             final_cut_string =[]
             for i, j in itertools.combinations([1,2,3,4], 2):
-                cut_string = ["(Z%iisTrueZ && Z%iisTrueZ" % (i, j)]
+                cut_string = ["(Z%iisTrueDecay && Z%iisTrueDecay" % (i, j)]
                 cut_string += ["(Z%imass > 60 && Z%imass < 120)" % (i, i)]
                 cut_string += [ "(Z%imass > 60 && Z%imass < 120))" % (j, j)]
                 final_cut_string += [" && ".join(cut_string)]
@@ -34,8 +36,20 @@ def getZMassCutString(analysis, requireTrue):
         else:
             return "((Z1mass < 120 && Z1mass > 60 && Z1isUnique) && " \
                  "(Z2mass < 120 && Z2mass > 60 && Z2isUnique))"
-    elif analysis == "WZ8TeV":
-        return "Z1mass < 111.11 && Z1mass > 71.11"
+    elif "4l" in analysis:
+        if requireTrue:
+            final_cut_string =[]
+            for i, j in itertools.combinations([1,2,3,4], 2):
+                cut_string = ["(Z%iisTrueDecay && Z%iisTrueDecay" % (i, j)]
+                #cut_string += ["(Z%imass > 40 && Z%imass < 120)" % (i, i)]
+                #cut_string += [ "(Z%imass > 4 && Z%imass < 120))" % (j, j)]
+                cut_string += ["Z%imass > 40" % i]
+                cut_string += [ "Z%imass > 4)" % j]
+                final_cut_string += [" && ".join(cut_string)]
+            return "(" + " || ".join(final_cut_string) + ")"
+        else:
+            return "((Z1mass < 120 && Z1mass > 40 && Z1isUnique) && " \
+                 "(Z2mass < 120 && Z2mass > 60 && Z2isUnique))"
 def getChannelEEMCutString():
     cut_string = "((abs(l1pdgId) == 11 && abs(l2pdgId) == 11 && abs(l3pdgId) == 13)" \
         " || (abs(l1pdgId) == 11 && abs(l2pdgId) == 13 && abs(l3pdgId) == 11)" \
@@ -67,12 +81,16 @@ def getChannelEEMMCutString():
         " || (abs(l1pdgId) == 11 && abs(l2pdgId) == 13 && abs(l3pdgId) == 11 && abs(l4pdgId) == 13))"
     return cut_string
 def getFiducialCutString(analysis, trueZ):
+    print "trueZ is %s" % trueZ
     if "WZ" in analysis:
         numLeptons = 3
         pt_cuts = [20, 10, 10]
-    else:
+    elif "ZZ" in analysis:
         numLeptons = 4
-        pt_cuts = [20, 10, 10, 10]
+        pt_cuts = [20, 10, 5, 5]
+    elif "4l" in analysis:
+        numLeptons = 4
+        pt_cuts = [20, 10, 5, 5]
     return " && ".join([getEtaCutString(numLeptons), 
         getPtCutString(pt_cuts, analysis + ("vary" if "WZ" in analysis else "")), 
         getZMassCutString(analysis, trueZ)])

@@ -21,11 +21,14 @@ class WeightedHistProducer(object):
         #branch_name = "abs(l1motherId) == 24 ? l1Pt : (abs(l2motherId) == 24 ? l2Pt : l3Pt)"
         cut_string = ''.join([self.weight_branch, "*(" + cut_string + ")" if cut_string != "" else ""])
         aliases = {
-                "trueZmass" : "Z1isTrueZ ? Z1mass : (Z2isTrueZ ? Z2mass : Z3mass)",
-                "trueZmass" : "Z1isTrueZ ? Z1Pt : (Z2isTrueZ ? Z2Pt : Z3Pt)"
+                "trueZmass" : "Z1isTrueZ ? Z1mass : Z2mass", #(Z2isTrueZ ? Z2mass : Z3mass)"
+                #"trueZPt" : "Z1isTrueZ ? Z1Pt : (Z2isTrueZ ? Z2Pt : Z3Pt)"
+                "trueWmass" : "W1isTrueW ? W1mass : (W2isTrueW ? W2mass : W3mass)",
+                "trueWPt" : "W1isTrueW ? W1Pt : (W2isTrueW ? W2Pt : W3Pt)"
         }
         alias_list = []
         proof = ROOT.gProof
+        proof.ClearInput()
         for alias_name, value in aliases.iteritems():
             alias_list.append(alias_name)
             proof.AddInput(ROOT.TNamed("alias:%s" % alias_name, value))
